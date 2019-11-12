@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+    "editor.tabSize": 2,
+    "editor.fontSize": 10,
+    "editor.renderWhitespace": "all",
+    "eslint.options": { "configFile": ".eslintrc.js" },
+    "workbench.colorCustomizations": {
+        "editor.background": "#000000",
+        "panel.background": "#000000",
+        "terminal.background" : "#000000"
+    },
+    "eslint.validate": [
+			"javascript",
+			"javascriptreact",
+			"vue",
+			{
+				"language": "html",
+				"autoFix": true
+			}
+		]
+	}
+}
