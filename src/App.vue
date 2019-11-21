@@ -23,6 +23,10 @@ export default {
     ...mapMutations('App', [
       'increment',
     ]),
+    test() {
+      var test = 'test';
+      return test;
+    }
   },
 };
 

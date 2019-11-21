@@ -6,13 +6,13 @@ import AppStore from './store/AppStore';
 
 Vue.use(Vuex);
 window.$store = new Vuex.Store({
-  modules: {
-    App: AppStore,
-  },
+    modules: {
+        App: AppStore,
+    },
 });
 Vue.config.productionTip = false;
 
 new Vue({
-  store: window.$store,
-  render: (h) => h(App),
+    store: window.$store,
+    render: (h) => h(App),
 }).$mount('#app');
