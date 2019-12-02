@@ -1,12 +1,12 @@
 
 export default {
-    namespaced: true,
-    state: {
-        count: 0,
+  namespaced: true,
+  state: {
+    count: 0,
+  },
+  mutations: {
+    increment(state) {
+      state.count += 1;
     },
-    mutations: {
-        increment(state) {
-            state.count += 1;
-        },
-    },
+  },
 };
