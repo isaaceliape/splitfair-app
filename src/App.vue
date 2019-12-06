@@ -1,23 +1,17 @@
 <template>
   <div class="app">
-    <img
-      class="logo"
-      alt="Vue logo"
-      src="./assets/logo.png"
-      @click="increment"
-    >
-    <HelloWorld msg="Welcome to SplitSmart app" />
+    <Home />
   </div>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
 
-import HelloWorld from './components/HelloWorld.vue';
+import Home from './components/Home.vue';
 
 export default {
   components: {
-    HelloWorld,
+    Home,
   },
   methods: {
     ...mapMutations('App', [
@@ -33,6 +27,10 @@ export default {
 </script>
 
 <style>
+body {
+  margin: 0;
+  padding: 0;
+}
 .app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
