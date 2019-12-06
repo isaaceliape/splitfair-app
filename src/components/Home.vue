@@ -147,6 +147,9 @@ export default {
       margin: 20px auto;
       background-color: #ccc;
     }
+    h2 {
+      font-size: 22px;
+    }
     .updateButton {
       padding: 7px 10px 11px 10px;
       border-radius: 5px;
