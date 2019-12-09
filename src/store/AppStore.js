@@ -26,8 +26,6 @@ export default {
       };
     },
     updateSecondPerson(state, payload) {
-
-      const percent = parseInt(payload).toFixed(0);
       state.secondPerson = {
         ...state.secondPerson,
         ...payload,
@@ -37,8 +35,7 @@ export default {
       state.sumOfDebts = payload === '' ? 0 : payload;
     },
     setBasePercentage(state, payload) {
-      const percent = parseInt(payload).toFixed(0);
-      state.basePercentage = percent === '' ? 0 : payload;
+      state.basePercentage = payload === '' ? 0 : payload;
     },
   },
 };

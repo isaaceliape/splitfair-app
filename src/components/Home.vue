@@ -50,13 +50,10 @@
         <h2>{{ secondPerson.name }}</h2>
       </div>
       <div class="wrapResult__numbers">
-        <span class="firstResult"><b>Total:</b> %{{ firstPerson.percent }}</span> 
-        <span class="secondResult"><b>Total:</b> %{{ secondPerson.percent }}</span> 
-      </div>
-      <div class="wrapResult__numbers">
         <span class="firstResult"><b>Total to pay:</b> {{ currency }}{{ firstPerson.total }}</span> 
         <span class="secondResult"><b>Total to pay:</b> {{ currency }}{{ secondPerson.total }}</span> 
       </div>
+      <div>%{{ basePercentage }}</div>
     </div>
   </div>
 </template>
@@ -73,9 +70,9 @@ export default {
   },
   data() {
     return {
-      firstSalary: '',
-      secondSalary: '',
-      sumOfDebtsState: '',
+      firstSalary: 3000,
+      secondSalary: 1700,
+      sumOfDebtsState: 1800,
     };
   },
   computed: {
@@ -84,6 +81,7 @@ export default {
       'secondPerson',
       'currency',
       'sumOfDebts',
+      'basePercentage',
     ]),
     disabled() {
       const { firstSalary, secondSalary, sumOfDebtsState } = this;
@@ -101,31 +99,28 @@ export default {
       if (this.disabled) return;
 
       let sum = 0;
-      let count = 0;
+      let incrementPercent = 0;
+      const format = (val, decimals = 1) => parseFloat(val.toFixed(decimals));
+
       const p1 = {
         salary: this.firstSalary,
-        percent: 0,
         total: 0,
       };
       const p2 = {
         salary: this.secondSalary,
-        percent: 0,
         total: 0,
       };
 
       while(sum <= this.sumOfDebtsState) {
-        p1.total = parseFloat((this.firstSalary / 100 * count).toFixed(0));
-        p2.total = parseFloat((this.secondSalary / 100 * count).toFixed(0));
-        
-        p1.percent = parseFloat((p1.total / this.sumOfDebtsState * 100).toFixed(0)),
-        p2.percent = parseFloat((p2.total / this.sumOfDebtsState * 100).toFixed(0)),
+        p1.total = format((this.firstSalary / 100 * incrementPercent), 0);
+        p2.total = format((this.secondSalary / 100 * incrementPercent), 0);
 
         sum = p1.total + p2.total;
-        count += 0.1; 
+        incrementPercent += 0.01; 
       }
 
       this.setDebts(this.sumOfDebtsState);
-      this.setBasePercentage(p1.percent);
+      this.setBasePercentage(format(incrementPercent));
       this.updateFirstPerson(p1);
       this.updateSecondPerson(p2);
     },
