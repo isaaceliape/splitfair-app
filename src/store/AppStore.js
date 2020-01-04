@@ -3,13 +3,13 @@ export default {
   namespaced: true,
   state: {
     firstPerson: {
-      name: 'First Person',
+      name: 'Name',
       salary: 0,
       percent: 0,
       total: 0,
     },
     secondPerson:  {
-      name: 'Second Person',
+      name: 'Name',
       salary: 0,
       percent: 0,
       total: 0,
@@ -36,6 +36,16 @@ export default {
     },
     setBasePercentage(state, payload) {
       state.basePercentage = payload === '' ? 0 : payload;
+    },
+    reset(state) {
+      state.firstPerson.salary = 0;
+      state.firstPerson.percent = 0;
+      state.firstPerson.total = 0;
+      state.secondPerson.salary = 0;
+      state.secondPerson.percent = 0;
+      state.secondPerson.total = 0;
+      state.sumOfDebts = 0;
+      state.basePercentage = 0;
     },
   },
 };
