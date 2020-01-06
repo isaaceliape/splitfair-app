@@ -1,5 +1,6 @@
 <template>
   <div class="App">
+    <div class="bg" />
     <header>
       <div class="block forehead" />
       <div class="wrap-logo">
@@ -18,7 +19,11 @@
     <section class="incomings">
       <div class="wrap-income">
         <h2 class="block label">
-          {{ firstPerson.name }}
+          <input
+            v-model="firstPerson.name"
+            type="text"
+            placeholder="Name"
+          >
         </h2>
         <div
           class="block income"
@@ -29,7 +34,11 @@
       </div>
       <div class="wrap-income">
         <h2 class="block label">
-          {{ secondPerson.name }}
+          <input
+            v-model="secondPerson.name"
+            type="text"
+            placeholder="Name"
+          >
         </h2>
         <div
           class="block income"
@@ -206,12 +215,47 @@ export default {
     margin: 0 auto;
     padding: 3px;
     box-sizing: border-box;
-    background-color: $dark-bg;
     font-family: Helvetica;
     font-size: 24px;
+    border-radius: 9px;
+    position: relative;
+    border: 10px solid $light-bg;
+    box-shadow: 0px 0px 40px $white;
+    transition: transform 500ms ease;
+    margin-top: 5vh;
+
+    @media #{$media-query-mobile} {
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      width: 100vw;
+      max-width: 100vw;
+      margin-top: 0;
+    }
+
+    &.menuOpened {
+      transform: translateX(-25vw);
+    }
+
+    .bg {
+      background-color: $dark-bg;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: -1;
+      border-radius: 9px;
+      left: 0;
+      top: 0;
+
+      @media #{$media-query-mobile} {
+        border-radius: 0;
+      }
+    }
 
     header {
       margin-bottom: 3px;
+      border-radius: 10px 10px 0 0;
+      overflow: hidden;
       .wrap-logo {
         display: grid;
         width: 100%;
@@ -243,18 +287,29 @@ export default {
       align-items: center;
     }
 
+    .chin,
     .forehead {
       width: 100%;
       height: 34px;
-      border-radius: 30px 30px 9px 9px;
       margin-bottom: 3px;
     }
 
+    .forehead {
+      border-radius: 9px;
+      
+      @media #{$media-query-mobile} {
+        border-radius: 30px 30px 9px 9px;
+      }
+    }
+
     .chin {
-      width: 100%;
-      height: 34px;
-      border-radius: 9px 9px 30px 30px;
-      margin-bottom: 3px;
+      border-radius: 9px;
+      margin-bottom: 34px;
+      
+      @media #{$media-query-mobile} {
+        margin-bottom: 3px;
+        border-radius: 9px 9px 30px 30px;
+      }
     }
 
     .incomings {
@@ -280,8 +335,21 @@ export default {
           text-align: center;
         }
         .label {
-          color: $gray;
           justify-content: center;
+
+          input {
+            background-color: transparent;
+            border: 0;
+            height: 100%;
+            text-align: center;
+            font-size: 24px;
+            color: $black;
+            outline: none;
+
+            &::placeholder {
+              color: $gray;
+            }
+          }
         }
         .income {
           color: $green;
@@ -364,7 +432,6 @@ export default {
 
       &[disabled] {
         opacity: 0.7;
-        outline: 1px solid red;
       }
     }
   }

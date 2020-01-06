@@ -115,18 +115,14 @@ export default {
     };
   },
   mounted() {
-    console.log('mounted');
     document.addEventListener('keydown', this.onKeyDown);
     document.addEventListener('keyup', this.onKeyup);
   },
   methods: {
     onMousedown(e) {
-      console.log('mousedown');
-      console.log(e);
       e.currentTarget.classList.add('pressed');
     },
     onMouseup(e) {
-      console.log('mouseup');
       e.currentTarget.classList.remove('pressed');
       this.$emit('tapped-button', e.currentTarget.innerText.trim());
     },
@@ -157,7 +153,6 @@ export default {
       }
     },
     onKeyDown(e) {
-      console.log('keydown', e.currentTarget);
     },
     isNumber(value) {
       var reg = new RegExp('^[0-9]+$');
