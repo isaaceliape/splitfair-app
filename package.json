@@ -5,8 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "deploy": "npm run build && mv dist docs",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "vue-cli-service build && rsync -av ./dist/* ../splitsmart-deploy/"
   },
   "dependencies": {
     "core-js": "^3.3.2",

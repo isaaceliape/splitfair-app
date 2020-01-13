@@ -3,24 +3,21 @@
     <div class="button-row">
       <div
         ref="button-7"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button"
       >
         7
       </div>
       <div
         ref="button-8"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button"
       >
         8
       </div>
       <div
         ref="button-9"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button"
       >
         9
@@ -29,24 +26,21 @@
     <div class="button-row">
       <div
         ref="button-4"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button"
       >
         4
       </div>
       <div
         ref="button-5"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button"
       >
         5
       </div>
       <div
         ref="button-6"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button"
       >
         6
@@ -55,24 +49,21 @@
     <div class="button-row">
       <div
         ref="button-1"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button"
       >
         1
       </div>
       <div
         ref="button-2"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button"
       >
         2
       </div>
       <div
         ref="button-3"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button"
       >
         3
@@ -81,24 +72,21 @@
     <div class="button-row">
       <div
         ref="button-Backspace"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button clear"
       >
         {{ backIcon }}
       </div>
       <div
         ref="button-0"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button"
       >
         0
       </div>
       <div
         ref="button-Enter"
-        v-touch:end="onMouseup"
-        v-touch:start="onMousedown"
+        v-touch:tap="onTap"
         class="button enter"
       >
         Enter
@@ -112,6 +100,7 @@ export default {
   data: function() {
     return {
       backIcon: '<',
+      timeout: null,
     };
   },
   mounted() {
@@ -119,12 +108,14 @@ export default {
     document.addEventListener('keyup', this.onKeyup);
   },
   methods: {
-    onMousedown(e) {
-      e.currentTarget.classList.add('pressed');
-    },
-    onMouseup(e) {
-      e.currentTarget.classList.remove('pressed');
-      this.$emit('tapped-button', e.currentTarget.innerText.trim());
+    onTap(e) {
+      const el = e.currentTarget;
+      clearTimeout(this.timeout);
+      el.classList.add('pressed');
+      this.timeout = setTimeout(() => {
+        el.classList.remove('pressed');
+      }, 200);
+      this.$emit('tapped-button', el.innerText.trim());
     },
     onKeyup(e) {
       const isBackspace = e.key === 'Backspace';

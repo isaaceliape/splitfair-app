@@ -2,7 +2,6 @@
   <div class="App">
     <div class="bg" />
     <header>
-      <div class="block forehead" />
       <div class="wrap-logo">
         <div class="block block-02" />
         <div class="block block-03">
@@ -63,7 +62,6 @@
 
     <button
       class="block split-btn"
-      :disabled="disabled"
       @click="calculate"
     >
       Split
@@ -78,18 +76,32 @@
       v-if="shouldShowResults"
       class="results"
     >
-      <div class="block title">Results</div>
-      <div class="wrap-results">
-        <div class="block label">{{ firstPerson.name }}</div>
-        <div class="block value">{{ currency }}{{ firstPerson.total }}</div>
+      <div class="block title">
+        Results
       </div>
       <div class="wrap-results">
-        <div class="block label">{{ secondPerson.name }}</div>
-        <div class="block value">{{ currency }}{{ secondPerson.total }}</div>
+        <div class="block label">
+          {{ firstPersonResultName }}
+        </div>
+        <div class="block value">
+          {{ currency }}{{ firstPerson.total }}
+        </div>
       </div>
-      <div class="block percent-each">%{{ basePercentage }} each</div>
+      <div class="wrap-results">
+        <div class="block label">
+          {{ secondPersonResultName }}
+        </div>
+        <div class="block value">
+          {{ currency }}{{ secondPerson.total }}
+        </div>
+      </div>
+      <div class="block percent-each">
+        %{{ basePercentage }} each
+      </div>
       <div class="wrap-buttons">
-        <div class="block share">Share</div>
+        <div class="block share">
+          Share
+        </div>
         <div
           class="block clear"
           @click="onClickClear"
@@ -98,8 +110,6 @@
         </div>
       </div>
     </section>
-
-    <div class="block chin" />
   </div>
 </template>
 
@@ -135,6 +145,12 @@ export default {
     },
     shouldShowResults() {
       return this.basePercentage !== 0;
+    },
+    firstPersonResultName() {
+      return this.firstPerson.name ? this.firstPerson.name : 'First person';
+    },
+    secondPersonResultName() {
+      return this.secondPerson.name ? this.secondPerson.name : 'Second person';
     }
   },
   methods: {
@@ -166,6 +182,8 @@ export default {
         console.log('enter');
         return;
       }
+
+      if (currentField.length > 7) return;
 
       this[this.selectedField] = this[this.selectedField] === '0'
         ? tappedButton
@@ -223,6 +241,7 @@ export default {
     box-shadow: 0px 0px 40px $white;
     transition: transform 500ms ease;
     margin-top: 5vh;
+    padding-bottom: 38px;
 
     @media #{$media-query-mobile} {
       border: 0;
@@ -231,6 +250,7 @@ export default {
       width: 100vw;
       max-width: 100vw;
       margin-top: 0;
+      padding: 38px 0;
     }
 
     &.menuOpened {
@@ -238,7 +258,7 @@ export default {
     }
 
     .bg {
-      background-color: $dark-bg;
+      background-color: $black;
       width: 100%;
       height: 100%;
       position: absolute;
@@ -285,31 +305,6 @@ export default {
       height: 84px;
       justify-content: center;
       align-items: center;
-    }
-
-    .chin,
-    .forehead {
-      width: 100%;
-      height: 34px;
-      margin-bottom: 3px;
-    }
-
-    .forehead {
-      border-radius: 9px;
-      
-      @media #{$media-query-mobile} {
-        border-radius: 30px 30px 9px 9px;
-      }
-    }
-
-    .chin {
-      border-radius: 9px;
-      margin-bottom: 34px;
-      
-      @media #{$media-query-mobile} {
-        margin-bottom: 3px;
-        border-radius: 9px 9px 30px 30px;
-      }
     }
 
     .incomings {
@@ -429,10 +424,6 @@ export default {
       border: 0;
       outline: 0;
       margin-bottom: 3px;
-
-      &[disabled] {
-        opacity: 0.7;
-      }
     }
   }
 </style>
