@@ -100,6 +100,7 @@ body {
   width: 100vw;
   height: 100vh;
   position: relative;
+  cursor: url(assets/cursor-red.png), auto;
 
   .Application__logo {
     cursor: pointer;

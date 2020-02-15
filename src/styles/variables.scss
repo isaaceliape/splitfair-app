@@ -9,3 +9,8 @@
   $light-bg-02: #CBC9C9;
 
   $media-query-mobile: only screen and (max-width: 600px);
+
+  $block-height: calc((100vh / 9) - 11px);
+  $block-min-height: 55px;
+  $block-max-height: 84px;
+  $block-height-header: calc(100vh / 9);

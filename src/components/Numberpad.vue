@@ -165,7 +165,9 @@ export default {
     font-family: helvetica;
 
     .button {
-      height: 84px;
+      height: $block-height;
+      min-height: $block-min-height;
+max-height: $block-max-height;
       background-color: $light-bg;
       border-radius: 9px;
       display: flex;
@@ -173,12 +175,11 @@ export default {
       justify-content: center;
       transition: all 200ms ease;
       backface-visibility: hidden;
-      -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-         -khtml-user-select: none; /* Konqueror HTML */
-           -moz-user-select: none; /* Old versions of Firefox */
-            -ms-user-select: none; /* Internet Explorer/Edge */
-                user-select: none; //
+      user-select: none;
+
+      &:hover {
+        background-color: #ecf8ff;
+      }
 
       &.pressed {
         transform: scale(0.98);
@@ -192,6 +193,9 @@ export default {
       &.enter {
         color: $black;
         background-color: $red;
+        &:hover {
+          background-color: #fb7755;
+        }
       }
     }
   }
