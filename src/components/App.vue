@@ -26,9 +26,10 @@
         </h2>
         <div
           class="block income"
+          :class="{ active: selectedField === 'firstSalary' }"
           @click="setSelectedField('firstSalary')"
         >
-          {{ currency }}{{ firstSalary }}
+          <span>{{ currency }}{{ firstSalary }}</span>
         </div>
       </div>
       <div class="wrap-income">
@@ -41,22 +42,26 @@
         </h2>
         <div
           class="block income"
+          :class="{ active: selectedField === 'secondSalary' }"
           @click="setSelectedField('secondSalary')"
         >
-          {{ currency }}{{ secondSalary }}
+          <span>{{ currency }}{{ secondSalary }}</span>
         </div>
       </div>
     </section>
 
-    <section class="expenses">
+    <section
+      class="expenses"
+      :class="{ active: selectedField === 'expenses' }"
+    >
       <div class="block label">
         Expenses
       </div>
       <div
         class="block value"
-        @click="setSelectedField('sumOfDebtsState')"
+        @click="setSelectedField('expenses')"
       >
-        {{ currency }}{{ sumOfDebtsState }}
+        <span>{{ currency }}{{ expenses }}</span>
       </div>
     </section>
 
@@ -126,7 +131,7 @@ export default {
     return {
       firstSalary: '0',
       secondSalary: '0',
-      sumOfDebtsState: '0',
+      expenses: '0',
       showNumberpad: true,
       selectedField: 'firstSalary',
     };
@@ -140,8 +145,8 @@ export default {
       'basePercentage',
     ]),
     disabled() {
-      const { firstSalary, secondSalary, sumOfDebtsState } = this;
-      return firstSalary === '0' || secondSalary === '0' || sumOfDebtsState === '0';
+      const { firstSalary, secondSalary, expenses } = this;
+      return firstSalary === '0' || secondSalary === '0' || expenses === '0';
     },
     shouldShowResults() {
       return this.basePercentage !== 0;
@@ -164,7 +169,7 @@ export default {
     onClickClear() {
       this.firstSalary = '0';
       this.secondSalary = '0';
-      this.sumOfDebtsState = '0';
+      this.expenses = '0';
       this.reset();
     },
     setSelectedField(field) {
@@ -206,7 +211,7 @@ export default {
         total: 0,
       };
 
-      while(sum <= this.sumOfDebtsState) {
+      while(sum <= this.expenses) {
         p1.total = format((Number(this.firstSalary) / 100 * incrementPercent), 0);
         p2.total = format((Number(this.secondSalary) / 100 * incrementPercent), 0);
 
@@ -214,7 +219,7 @@ export default {
         incrementPercent += 0.01; 
       }
 
-      this.setDebts(this.sumOfDebtsState);
+      this.setDebts(this.expenses);
       this.setBasePercentage(format(incrementPercent));
       this.updateFirstPerson(p1);
       this.updateSecondPerson(p2);
@@ -226,6 +231,17 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
   @import '../styles/variables';
+
+  @keyframes blink-animation {
+    to {
+      visibility: hidden;
+    }
+  }
+  @-webkit-keyframes blink-animation {
+    to {
+      visibility: hidden;
+    }
+  }
 
   .App {
     width: 100%;
@@ -250,7 +266,7 @@ export default {
       width: 100vw;
       max-width: 100vw;
       margin-top: 0;
-      padding: 38px 0;
+      padding: 38px 0 38px 0;
     }
 
     &.menuOpened {
@@ -282,16 +298,23 @@ export default {
         grid-gap: 3px;
         grid-template-columns: 1fr 1fr 1fr;
 
+        .logo {
+          height: 70%;
+        }
+
         .block-02,
         .block-03,
         .block-04 {
-          height: 120px;
+          height: $block-height-header;
           display: flex;
         }
         .block-03 {
           width: 232px;
           display: flex;
           justify-content: center;
+          @media #{$media-query-mobile} {
+            width: 62vw;
+          }
         }
       }
     }
@@ -302,7 +325,9 @@ export default {
       border-radius: 9px;
       padding: 0 29px;
       display: flex;
-      height: 84px;
+      height: $block-height;
+      min-height: $block-min-height;
+      max-height: $block-max-height;
       justify-content: center;
       align-items: center;
     }
@@ -316,7 +341,9 @@ export default {
         display: grid;
         grid-gap: 3px;
         grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
-        height: 84px;
+        height: $block-height;
+        min-height: $block-min-height;
+        max-height: $block-max-height;
         margin-bottom: 3px;
 
         .label,
@@ -349,6 +376,20 @@ export default {
         .income {
           color: $green;
           justify-content: flex-end;
+          &::before {
+            content: '';
+            width: 5px;
+            height: 60%;
+            background-color: $red;
+            margin-right: 5px;
+            opacity: 0;
+          }
+          &.active {
+            &::before {
+              opacity: 1;
+              animation: blink-animation 1s steps(5, start) infinite;
+            }
+          }
         }
       }
     }
@@ -357,8 +398,18 @@ export default {
       display: grid;
       grid-gap: 3px;
       grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
-      height: 84px;
+      height: $block-height;
+      min-height: $block-min-height;
+max-height: $block-max-height;
       margin-bottom: 3px;
+      &.active {
+        .value {
+          &::before {
+            opacity: 1;
+            animation: blink-animation 1s steps(5, start) infinite;
+          }
+        }
+      }
 
       .label {
         background-color: $red;
@@ -368,6 +419,15 @@ export default {
         background-color: $black;
         color: $red;
         justify-content: flex-end;
+
+        &::before {
+          content: '';
+          width: 4px;
+          height: 40px;
+          background-color: $red;
+          margin-right: 5px;
+          opacity: 0;
+        }
       }
     }
 
@@ -382,7 +442,9 @@ export default {
         display: grid;
         grid-gap: 3px;
         grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
-        height: 84px;
+        height: $block-height;
+        min-height: $block-min-height;
+max-height: $block-max-height;
         margin-bottom: 3px;
 
         .value {
@@ -397,7 +459,9 @@ export default {
         display: grid;
         grid-gap: 3px;
         grid-template-columns: minmax(calc(67% - 3px), 1fr) minmax(33%, 1fr) ;
-        height: 84px;
+        height: $block-height;
+        min-height: $block-min-height;
+max-height: $block-max-height;
         margin-bottom: 3px;
 
         .share {
@@ -412,7 +476,9 @@ export default {
     }
 
     .split-btn {
-      height: 84px;
+      height: $block-height;
+      min-height: $block-min-height;
+max-height: $block-max-height;
       width: 100%;
       font-style: normal;
       font-weight: normal;
@@ -424,6 +490,10 @@ export default {
       border: 0;
       outline: 0;
       margin-bottom: 3px;
+      cursor: url(../assets/cursor-red.png), auto;
+      &:hover {
+        background-color: #26adef;
+      }
     }
   }
 </style>
