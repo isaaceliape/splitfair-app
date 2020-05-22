@@ -6,7 +6,7 @@
       :class="{ menuOpened }"
       class="Application__link logo"
     >
-      sliptsmart
+      splitfair
     </a>
     
     <span
