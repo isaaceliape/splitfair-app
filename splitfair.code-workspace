@@ -11,7 +11,7 @@
     "eslint.options": { "configFile": ".eslintrc.json" },
     "workbench.colorCustomizations": {
 			"editor.background": "#000000",
-			"panel.background": "#1ccb66",
+			"panel.background": "#000000",
 			"terminal.background": "#000000",
 			"activityBar.activeBackground": "#37e380",
 			"activityBar.activeBorder": "#9457e7",
