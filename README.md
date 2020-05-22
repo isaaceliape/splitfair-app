@@ -1,4 +1,5 @@
-# Splitfair 💰
+![Image of Yaktocat](https://github.com/isaaceliape/splitfair-pwa/blob/master/public/icon-144x144.png?raw=true)
+# Splitfair
 
 ## Project setup
 ```
