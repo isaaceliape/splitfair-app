@@ -1,4 +1,4 @@
-# Split Smart 💰
+# Splitfair 💰
 
 ## Project setup
 ```

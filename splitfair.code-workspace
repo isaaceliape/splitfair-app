@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": "./"
 		}
 	],
 	"settings": {
@@ -10,10 +10,26 @@
     "editor.renderWhitespace": "all",
     "eslint.options": { "configFile": ".eslintrc.json" },
     "workbench.colorCustomizations": {
-        "editor.background": "#000000",
-        "panel.background": "#000000",
-        "terminal.background" : "#000000"
-    },
+			"editor.background": "#000000",
+			"panel.background": "#1ccb66",
+			"terminal.background": "#000000",
+			"activityBar.activeBackground": "#37e380",
+			"activityBar.activeBorder": "#9457e7",
+			"activityBar.background": "#37e380",
+			"activityBar.foreground": "#15202b",
+			"activityBar.inactiveForeground": "#15202b99",
+			"activityBarBadge.background": "#9457e7",
+			"activityBarBadge.foreground": "#e7e7e7",
+			"statusBar.background": "#1ccb66",
+			"statusBar.border": "#1ccb66",
+			"statusBar.foreground": "#15202b",
+			"statusBarItem.hoverBackground": "#169e4f",
+			"titleBar.activeBackground": "#1ccb66",
+			"titleBar.activeForeground": "#15202b",
+			"titleBar.border": "#1ccb66",
+			"titleBar.inactiveBackground": "#1ccb6699",
+			"titleBar.inactiveForeground": "#15202b99"
+		},
     "eslint.validate": [
 			"javascript",
 			"javascriptreact",
@@ -22,6 +38,7 @@
 				"language": "html",
 				"autoFix": true
 			}
-		]
+		],
+		"peacock.color": "#1ccb66"
 	}
 }
