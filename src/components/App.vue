@@ -252,12 +252,15 @@ export default {
     font-family: Helvetica;
     font-size: 24px;
     border-radius: 9px;
+    padding-bottom: 38px;
     position: relative;
     border: 10px solid $light-bg;
     box-shadow: 0px 0px 40px $white;
+    transform: translate3d(-50%, -50%, 0);
     transition: transform 500ms ease;
-    margin-top: 5vh;
-    padding-bottom: 38px;
+    left: 50%;
+    top: 50%;
+    position: absolute;
 
     @media #{$media-query-mobile} {
       border: 0;
@@ -270,7 +273,7 @@ export default {
     }
 
     &.menuOpened {
-      transform: translateX(-25vw);
+      transform: translate3d(-25vw, -50%, 0);
     }
 
     .bg {
