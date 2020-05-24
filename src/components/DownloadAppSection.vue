@@ -1,5 +1,8 @@
 <template>
-  <section class="DownloadAppSection">
+  <section
+    class="DownloadAppSection"
+    :class="{ showOptions }"
+  >
     <a
       href="#"
       class="download-app"
@@ -7,10 +10,7 @@
     >
       download app
     </a>
-    <div
-      :class="{ show: showOptions }"
-      class="overlay"
-    >
+    <div class="overlay">
       <div
         class="left-content"
         @click="onClickDownloadApp"
@@ -61,6 +61,14 @@ export default {
     top: 0;
     z-index: 2;
 
+    &.showOptions {
+      z-index: 4;
+
+      .overlay {
+       transform: translateX(-100vw);
+      }
+    }
+
     .download-app {
       position: absolute;
       text-decoration: none;
@@ -85,10 +93,6 @@ export default {
     height: 100vh;
     transition: 500ms ease; 
     transform: translateX(0vw);
-
-    &.show {
-      transform: translateX(-100vw);
-    }
     
     .left-content {
       position: absolute;

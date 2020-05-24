@@ -1,5 +1,8 @@
 <template>
-  <section class="AboutSection">
+  <section
+    class="AboutSection"
+    :class="{ showOptions }"
+  >
     <a
       href="#"
       class="about"
@@ -7,10 +10,7 @@
     >
       about
     </a>
-    <div
-      :class="{ show: showOptions }"
-      class="overlay"
-    >
+    <div class="overlay">
       <div
         class="left-content"
         @click="onClickAboutBtn"
@@ -52,6 +52,13 @@ export default {
     bottom: 0;
     z-index: 2;
 
+    &.showOptions {
+      z-index: 4;
+
+      .overlay {
+        transform: translateX(-100vw);
+      }
+    }
     .about {
       position: absolute;
       text-decoration: none;
@@ -77,10 +84,6 @@ export default {
     transition: 500ms ease; 
     transform: translateX(0vw);
 
-    &.show {
-      transform: translateX(-100vw);
-    }
-    
     .left-content {
       position: absolute;
       left: 0;
