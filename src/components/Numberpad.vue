@@ -167,7 +167,7 @@ export default {
     .button {
       height: $block-height;
       min-height: $block-min-height;
-max-height: $block-max-height;
+      max-height: $block-max-height;
       background-color: $light-bg;
       border-radius: 9px;
       display: flex;

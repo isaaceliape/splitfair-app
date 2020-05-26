@@ -3,13 +3,13 @@ export default {
   namespaced: true,
   state: {
     firstPerson: {
-      name: '',
+      name: 'person 1',
       salary: 0,
       percent: 0,
       total: 0,
     },
     secondPerson:  {
-      name: '',
+      name: 'person 2',
       salary: 0,
       percent: 0,
       total: 0,

@@ -22,14 +22,26 @@
             v-model="firstPerson.name"
             type="text"
             placeholder="Name"
+            tabindex="1"
+            class="input"
+            autofocus
           >
         </h2>
         <div
           class="block income"
           :class="{ active: selectedField === 'firstSalary' }"
-          @click="setSelectedField('firstSalary')"
         >
-          <span>{{ currency }}{{ firstSalary }}</span>
+          <span v-if="firstPerson.firstSalary">
+            {{ currency }}
+          </span>
+          <input
+            :value="firstPerson.firstSalary"
+            type="text"
+            placeholder="salary"
+            tabindex="3"
+            class="input firstSalaryField"
+            @focus="setSelectedField('firstSalary')"
+          >
         </div>
       </div>
       <div class="wrap-income">
@@ -38,14 +50,25 @@
             v-model="secondPerson.name"
             type="text"
             placeholder="Name"
+            tabindex="2"
+            class="input"
           >
         </h2>
         <div
           class="block income"
           :class="{ active: selectedField === 'secondSalary' }"
-          @click="setSelectedField('secondSalary')"
         >
-          <span>{{ currency }}{{ secondSalary }}</span>
+          <span v-if="firstPerson.secondSalary">
+            {{ currency }}
+          </span>
+          <input
+            v-model="firstPerson.secondSalary"
+            type="number"
+            placeholder="salary"
+            tabindex="4"
+            class="input secondSalaryField"
+            @focus="setSelectedField('secondSalary')"
+          >
         </div>
       </div>
     </section>
@@ -57,20 +80,28 @@
       <div class="block label">
         Expenses
       </div>
-      <div
-        class="block value"
-        @click="setSelectedField('expenses')"
-      >
-        <span>{{ currency }}{{ expenses }}</span>
+      <div class="block value">
+        <span v-if="expenses">
+          {{ currency }}
+        </span>
+        <input
+          v-model="expenses"
+          type="text"
+          placeholder="expenses"
+          tabindex="5"
+          class="input expensesField"
+          @focus="setSelectedField('expenses')"
+        >
       </div>
     </section>
 
-    <button
+    <a
       class="block split-btn"
+      tabindex="6"
       @click="calculate"
     >
       Split
-    </button>
+    </a>
 
     <Numberpad
       v-if="showNumberpad && !shouldShowResults"
@@ -115,6 +146,12 @@
         </div>
       </div>
     </section>
+
+    <ShareCanvas
+      :first-person="firstPerson"
+      :second-person="secondPerson"
+      :currency="currency"
+    />
   </div>
 </template>
 
@@ -122,16 +159,18 @@
 import { mapState, mapMutations } from 'vuex';
 
 import Numberpad from './Numberpad.vue';
+import ShareCanvas from './ShareCanvas.vue';
 
 export default {
   components: {
     Numberpad,
+    ShareCanvas,
   },
   data() {
     return {
       firstSalary: '0',
       secondSalary: '0',
-      expenses: '0',
+      expenses: 0,
       showNumberpad: true,
       selectedField: 'firstSalary',
     };
@@ -195,7 +234,6 @@ export default {
         : this[this.selectedField] + tappedButton;
     },
     calculate() {
-      console.log('calculate');
       if (this.disabled) return;
 
       let sum = 0;
@@ -335,6 +373,38 @@ export default {
       align-items: center;
     }
 
+    .input {
+      background-color: transparent;
+      border: 0;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      font-size: 24px;
+      outline: none;
+      position: relative;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      &[type=number] {
+        -moz-appearance: textfield;
+      }
+
+      &::placeholder {
+        color: $gray;
+      }
+
+      &.firstSalaryField,
+      &.secondSalaryField {
+        color: $green;
+      }
+      &.expensesField {
+        color: $red;
+      }
+    }
+
     .incomings {
       display: flex;
       flex-direction: column;
@@ -361,38 +431,16 @@ export default {
         }
         .label {
           justify-content: center;
-
-          input {
-            background-color: transparent;
-            border: 0;
-            height: 100%;
-            text-align: center;
-            font-size: 24px;
-            color: $black;
-            outline: none;
-
-            &::placeholder {
-              color: $gray;
-            }
-          }
         }
         .income {
           color: $green;
           justify-content: flex-end;
-          &::before {
-            content: '';
-            width: 5px;
-            height: 60%;
-            background-color: $red;
-            margin-right: 5px;
-            opacity: 0;
+          &:focus {
+            background-color: red;
           }
-          &.active {
-            &::before {
-              opacity: 1;
-              animation: blink-animation 1s steps(5, start) infinite;
-            }
-          }
+        }
+        .firstSalaryField {
+          height: 100%;
         }
       }
     }
@@ -403,7 +451,7 @@ export default {
       grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
       height: $block-height;
       min-height: $block-min-height;
-max-height: $block-max-height;
+      max-height: $block-max-height;
       margin-bottom: 3px;
       &.active {
         .value {
@@ -447,7 +495,7 @@ max-height: $block-max-height;
         grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
         height: $block-height;
         min-height: $block-min-height;
-max-height: $block-max-height;
+        max-height: $block-max-height;
         margin-bottom: 3px;
 
         .value {
@@ -464,7 +512,7 @@ max-height: $block-max-height;
         grid-template-columns: minmax(calc(67% - 3px), 1fr) minmax(33%, 1fr) ;
         height: $block-height;
         min-height: $block-min-height;
-max-height: $block-max-height;
+        max-height: $block-max-height;
         margin-bottom: 3px;
 
         .share {
@@ -481,7 +529,7 @@ max-height: $block-max-height;
     .split-btn {
       height: $block-height;
       min-height: $block-min-height;
-max-height: $block-max-height;
+      max-height: $block-max-height;
       width: 100%;
       font-style: normal;
       font-weight: normal;
@@ -494,7 +542,8 @@ max-height: $block-max-height;
       outline: 0;
       margin-bottom: 3px;
       cursor: url(../assets/cursor-red.png), auto;
-      &:hover {
+      &:hover,
+      &:focus {
         background-color: #26adef;
       }
     }
