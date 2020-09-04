@@ -90,26 +90,29 @@ export default {
       width: 50vw;
       height: 100%;
       cursor: pointer;
-      cursor: url('../assets/cursor-cross-green.png'), auto;	
+      cursor: url('../assets/cursor-cross-green.png'), auto;
     }
     .right-content {
       width: 50vw;
       position: absolute;
-      right: 0;
-      height: 100%;
+      top: 7px;
+      right: 7px;
+      height: calc(100% - 14px);
       background-color: $green;
       text-align: left;
       padding: 2vw 7vw;
       box-sizing: border-box;
       overflow: auto;
       cursor: url('../assets/cursor-black.png'), auto;	
+      border-radius: 24px;
   
       .title {
         font-size: 128px;
         text-decoration: none;
-        display: block;
         color: $black;
         font-weight: normal;
+        position: absolute;
+        bottom: 25px;
       }
     }
   }

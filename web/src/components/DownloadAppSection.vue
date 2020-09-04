@@ -92,7 +92,9 @@ export default {
     width: 100vw;
     height: 100vh;
     transition: 500ms ease; 
-    transform: translateX(0vw);
+    transform: translateX(0vw);	
+    background: url('../assets/desktop_bg.png') 76% center no-repeat;
+    background-size: cover;
     
     .left-content {
       position: absolute;
@@ -100,7 +102,7 @@ export default {
       width: 50vw;
       height: 100%;
       cursor: pointer;
-      cursor: url('../assets/cursor-cross-red.png'), auto;	
+      cursor: url('../assets/cursor-cross-red.png'), auto;
     }
     .right-content {
       width: 50vw;
