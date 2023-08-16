@@ -99,11 +99,9 @@
       class="block split-btn"
       tabindex="6"
       @click="calculate"
-    >
-      Split
-    </a>
+    > Split </a>
 
-    <Numberpad
+    <NumberpadCP
       v-if="showNumberpad && !shouldShowResults"
       @tapped-button="onTapButtonNumberpad"
     />
@@ -148,6 +146,7 @@
     </section>
 
     <ShareCanvas
+      v-if="showCanvas"
       :first-person="firstPerson"
       :second-person="secondPerson"
       :currency="currency"
@@ -158,12 +157,12 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 
-import Numberpad from './Numberpad.vue';
+import NumberpadCP from './Numberpad.vue';
 import ShareCanvas from './ShareCanvas.vue';
 
 export default {
   components: {
-    Numberpad,
+    NumberpadCP,
     ShareCanvas,
   },
   data() {
@@ -173,6 +172,7 @@ export default {
       expenses: 0,
       showNumberpad: true,
       selectedField: 'firstSalary',
+      showCanvas: false
     };
   },
   computed: {
@@ -195,7 +195,7 @@ export default {
     },
     secondPersonResultName() {
       return this.secondPerson.name ? this.secondPerson.name : 'Second person';
-    }
+    },
   },
   methods: {
     ...mapMutations('App', [
@@ -212,7 +212,7 @@ export default {
       this.reset();
     },
     setSelectedField(field) {
-      this.selectedField = field; 
+      this.selectedField = field;
     },
     onTapButtonNumberpad(tappedButton) {
       let currentField = this[this.selectedField];
@@ -220,7 +220,7 @@ export default {
       if (tappedButton === '<') {
         this[this.selectedField] = '0';
         return;
-      };
+      }
 
       if (tappedButton === 'Enter') {
         console.log('enter');
@@ -229,9 +229,10 @@ export default {
 
       if (currentField.length > 7) return;
 
-      this[this.selectedField] = this[this.selectedField] === '0'
-        ? tappedButton
-        : this[this.selectedField] + tappedButton;
+      this[this.selectedField] =
+        this[this.selectedField] === '0'
+          ? tappedButton
+          : this[this.selectedField] + tappedButton;
     },
     calculate() {
       if (this.disabled) return;
@@ -249,12 +250,12 @@ export default {
         total: 0,
       };
 
-      while(sum <= this.expenses) {
-        p1.total = format((Number(this.firstSalary) / 100 * incrementPercent), 0);
-        p2.total = format((Number(this.secondSalary) / 100 * incrementPercent), 0);
+      while (sum <= this.expenses) {
+        p1.total = format((Number(this.firstSalary) / 100) * incrementPercent, 0);
+        p2.total = format((Number(this.secondSalary) / 100) * incrementPercent, 0);
 
         sum = p1.total + p2.total;
-        incrementPercent += 0.01; 
+        incrementPercent += 0.01;
       }
 
       this.setDebts(this.expenses);
@@ -268,184 +269,148 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-  @import '../styles/variables';
+@import "../styles/variables";
 
-  @keyframes blink-animation {
-    to {
-      visibility: hidden;
-    }
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
   }
-  @-webkit-keyframes blink-animation {
-    to {
-      visibility: hidden;
-    }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
+.App {
+  width: 100%;
+  max-width: 414px;
+  margin: 0 auto;
+  padding: 3px;
+  box-sizing: border-box;
+  font-family: "Helvetica", sans-serif;
+  font-size: 24px;
+  border-radius: 9px;
+  padding-bottom: 38px;
+  border: 10px solid $light-bg;
+  box-shadow: 0px 0px 40px $white;
+  transform: translate3d(-50%, -50%, 0);
+  transition: transform 500ms ease;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+
+  @media only screen and (max-width: 600px) {
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    width: 100vw;
+    max-width: 100vw;
+    margin-top: 0;
+    padding: 38px 0 38px 0;
   }
 
-  .App {
+  &.menuOpened {
+    transform: translate3d(-25vw, -50%, 0);
+  }
+
+  .bg {
+    background-color: $black;
     width: 100%;
-    max-width: 414px;
-    margin: 0 auto;
-    padding: 3px;
-    box-sizing: border-box;
-    font-family: Helvetica;
-    font-size: 24px;
-    border-radius: 9px;
-    padding-bottom: 38px;
-    position: relative;
-    border: 10px solid $light-bg;
-    box-shadow: 0px 0px 40px $white;
-    transform: translate3d(-50%, -50%, 0);
-    transition: transform 500ms ease;
-    left: 50%;
-    top: 50%;
+    height: 100%;
     position: absolute;
+    z-index: -1;
+    border-radius: 9px;
+    left: 0;
+    top: 0;
 
-    @media #{$media-query-mobile} {
-      border: 0;
-      box-shadow: none;
+    @media only screen and (max-width: 600px) {
       border-radius: 0;
-      width: 100vw;
-      max-width: 100vw;
-      margin-top: 0;
-      padding: 38px 0 38px 0;
     }
+  }
 
-    &.menuOpened {
-      transform: translate3d(-25vw, -50%, 0);
-    }
-
-    .bg {
-      background-color: $black;
+  header {
+    margin-bottom: 3px;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    .wrap-logo {
+      display: grid;
       width: 100%;
-      height: 100%;
-      position: absolute;
-      z-index: -1;
-      border-radius: 9px;
-      left: 0;
-      top: 0;
+      grid-gap: 3px;
+      grid-template-columns: 1fr 1fr 1fr;
 
-      @media #{$media-query-mobile} {
-        border-radius: 0;
+      .logo {
+        height: 70%;
       }
-    }
 
-    header {
-      margin-bottom: 3px;
-      border-radius: 10px 10px 0 0;
-      overflow: hidden;
-      .wrap-logo {
-        display: grid;
-        width: 100%;
-        grid-gap: 3px;
-        grid-template-columns: 1fr 1fr 1fr;
-
-        .logo {
-          height: 70%;
-        }
-
-        .block-02,
-        .block-03,
-        .block-04 {
-          height: $block-height-header;
-          display: flex;
-        }
-        .block-03 {
-          width: 232px;
-          display: flex;
-          justify-content: center;
-          @media #{$media-query-mobile} {
-            width: 62vw;
-          }
+      .block-02,
+      .block-03,
+      .block-04 {
+        height: $block-height-header;
+        display: flex;
+      }
+      .block-03 {
+        width: 232px;
+        display: flex;
+        justify-content: center;
+        @media only screen and (max-width: 600px) {
+          width: 62vw;
         }
       }
     }
+  }
 
-    .block {
-      background-color: $light-bg;
-      box-sizing: border-box;
-      border-radius: 9px;
-      padding: 0 29px;
-      display: flex;
-      height: $block-height;
-      min-height: $block-min-height;
-      max-height: $block-max-height;
-      justify-content: center;
-      align-items: center;
+  .block {
+    background-color: $light-bg;
+    box-sizing: border-box;
+    border-radius: 9px;
+    padding: 0 29px;
+    display: flex;
+    height: $block-height;
+    min-height: $block-min-height;
+    max-height: $block-max-height;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .input {
+    background-color: transparent;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 24px;
+    outline: none;
+    position: relative;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    &[type="number"] {
+      appearance: textfield;
     }
 
-    .input {
-      background-color: transparent;
-      border: 0;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      font-size: 24px;
-      outline: none;
-      position: relative;
-
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-      &[type=number] {
-        -moz-appearance: textfield;
-      }
-
-      &::placeholder {
-        color: $gray;
-      }
-
-      &.firstSalaryField,
-      &.secondSalaryField {
-        color: $green;
-      }
-      &.expensesField {
-        color: $red;
-      }
+    &::placeholder {
+      color: $gray;
     }
 
-    .incomings {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-
-      .wrap-income{
-        display: grid;
-        grid-gap: 3px;
-        grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
-        height: $block-height;
-        min-height: $block-min-height;
-        max-height: $block-max-height;
-        margin-bottom: 3px;
-
-        .label,
-        .income {
-          display: flex;
-          align-items: center;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 24px;
-          line-height: 24px;
-          text-align: center;
-        }
-        .label {
-          justify-content: center;
-        }
-        .income {
-          color: $green;
-          justify-content: flex-end;
-          &:focus {
-            background-color: red;
-          }
-        }
-        .firstSalaryField {
-          height: 100%;
-        }
-      }
+    &.firstSalaryField,
+    &.secondSalaryField {
+      color: $green;
     }
+    &.expensesField {
+      color: $red;
+    }
+  }
 
-    .expenses {
+  .incomings {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .wrap-income {
       display: grid;
       grid-gap: 3px;
       grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
@@ -453,99 +418,134 @@ export default {
       min-height: $block-min-height;
       max-height: $block-max-height;
       margin-bottom: 3px;
-      &.active {
-        .value {
-          &::before {
-            opacity: 1;
-            animation: blink-animation 1s steps(5, start) infinite;
-          }
-        }
-      }
 
+      .label,
+      .income {
+        display: flex;
+        align-items: center;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 24px;
+        text-align: center;
+      }
       .label {
-        background-color: $red;
-        color: $black;
+        justify-content: center;
       }
-      .value {
-        background-color: $black;
-        color: $red;
+      .income {
+        color: $green;
         justify-content: flex-end;
-
-        &::before {
-          content: '';
-          width: 4px;
-          height: 40px;
-          background-color: $red;
-          margin-right: 5px;
-          opacity: 0;
+        &:focus {
+          background-color: red;
         }
       }
-    }
-
-    .results {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      .title {
-        margin-bottom: 3px;
-      }
-      .wrap-results {
-        display: grid;
-        grid-gap: 3px;
-        grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
-        height: $block-height;
-        min-height: $block-min-height;
-        max-height: $block-max-height;
-        margin-bottom: 3px;
-
-        .value {
-          justify-content: flex-end;
-          color: $blue;
-        }
-      }
-      .percent-each {
-        margin-bottom: 3px;
-      }
-      .wrap-buttons {
-        display: grid;
-        grid-gap: 3px;
-        grid-template-columns: minmax(calc(67% - 3px), 1fr) minmax(33%, 1fr) ;
-        height: $block-height;
-        min-height: $block-min-height;
-        max-height: $block-max-height;
-        margin-bottom: 3px;
-
-        .share {
-          background-color: $blue;
-          color: $white;
-        }
-        .clear {
-          background-color: $red;
-          color: $black;
-        }
-      }
-    }
-
-    .split-btn {
-      height: $block-height;
-      min-height: $block-min-height;
-      max-height: $block-max-height;
-      width: 100%;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 24px;
-      line-height: 24px;
-      text-align: center;
-      background-color: $blue;
-      color: $light-bg;
-      border: 0;
-      outline: 0;
-      margin-bottom: 3px;
-      cursor: url(../assets/cursor-red.png), auto;
-      &:hover,
-      &:focus {
-        background-color: #26adef;
+      .firstSalaryField {
+        height: 100%;
       }
     }
   }
+
+  .expenses {
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
+    height: $block-height;
+    min-height: $block-min-height;
+    max-height: $block-max-height;
+    margin-bottom: 3px;
+    &.active {
+      .value {
+        &::before {
+          opacity: 1;
+          animation: blink-animation 1s steps(5, start) infinite;
+        }
+      }
+    }
+
+    .label {
+      background-color: $red;
+      color: $black;
+    }
+    .value {
+      background-color: $black;
+      color: $red;
+      justify-content: flex-end;
+
+      &::before {
+        content: "";
+        width: 4px;
+        height: 40px;
+        background-color: $red;
+        margin-right: 5px;
+        opacity: 0;
+      }
+    }
+  }
+
+  .results {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .title {
+      margin-bottom: 3px;
+    }
+    .wrap-results {
+      display: grid;
+      grid-gap: 3px;
+      grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
+      height: $block-height;
+      min-height: $block-min-height;
+      max-height: $block-max-height;
+      margin-bottom: 3px;
+
+      .value {
+        justify-content: flex-end;
+        color: $blue;
+      }
+    }
+    .percent-each {
+      margin-bottom: 3px;
+    }
+    .wrap-buttons {
+      display: grid;
+      grid-gap: 3px;
+      grid-template-columns: minmax(calc(67% - 3px), 1fr) minmax(33%, 1fr);
+      height: $block-height;
+      min-height: $block-min-height;
+      max-height: $block-max-height;
+      margin-bottom: 3px;
+
+      .share {
+        background-color: $blue;
+        color: $white;
+      }
+      .clear {
+        background-color: $red;
+        color: $black;
+      }
+    }
+  }
+
+  .split-btn {
+    height: $block-height;
+    min-height: $block-min-height;
+    max-height: $block-max-height;
+    width: 100%;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 24px;
+    text-align: center;
+    background-color: $blue;
+    color: $light-bg;
+    border: 0;
+    outline: 0;
+    margin-bottom: 3px;
+    cursor: url(../assets/cursor-red.png), auto;
+    &:hover,
+    &:focus {
+      background-color: #26adef;
+    }
+  }
+}
 </style>

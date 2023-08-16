@@ -41,7 +41,7 @@ export default {
     };
   },
   methods: {
-    onClickDownloadApp(e) {
+    onClickDownloadApp() {
       this.showOptions = !this.showOptions;
       this.$emit('is-menun-open', this.showOptions);
     }

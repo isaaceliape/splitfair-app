@@ -39,6 +39,7 @@ import DownloadAppSection from './components/DownloadAppSection.vue';
 import AboutSection from './components/AboutSection.vue';
 
 export default {
+  name: 'ApplicationComponent',
   components: {
     App,
     DownloadAppSection,
@@ -60,7 +61,7 @@ export default {
       'increment',
     ]),
     test() {
-      var test = 'test';
+      const test = 'test';
       return test;
     },
     moveAppSideways(value) {
@@ -76,7 +77,7 @@ export default {
 
 <style lang="scss">
 @import 'styles/variables';
-
+$media-query-mobile: only screen and (max-width: 600px);
 * {
   margin: 0;
   padding: 0;
@@ -85,7 +86,7 @@ export default {
 body {
   background-color: $light-bg;
 
-  @media #{$media-query-mobile} {
+  @media only screen and (max-width: 600px) {
     background-color: $dark-bg;
   }
 }

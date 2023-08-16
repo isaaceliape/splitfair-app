@@ -32,7 +32,7 @@ export default {
     };
   },
   methods: {
-    onClickAboutBtn(e) {
+    onClickAboutBtn() {
       this.showOptions = !this.showOptions;
       this.$emit('is-menun-open', this.showOptions);
     }
@@ -47,7 +47,6 @@ export default {
     position: absolute;
     width: 0;
     height: 0;
-    z-index: 1;
     right: 0;
     bottom: 0;
     z-index: 2;
@@ -81,7 +80,7 @@ export default {
     top: -100vh;
     width: 100vw;
     height: 100vh;
-    transition: 500ms ease; 
+    transition: 500ms ease;
     transform: translateX(0vw);
 
     .left-content {
@@ -103,9 +102,9 @@ export default {
       padding: 2vw 7vw;
       box-sizing: border-box;
       overflow: auto;
-      cursor: url('../assets/cursor-black.png'), auto;	
+      cursor: url('../assets/cursor-black.png'), auto;
       border-radius: 24px;
-  
+
       .title {
         font-size: 128px;
         text-decoration: none;

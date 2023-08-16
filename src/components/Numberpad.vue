@@ -97,6 +97,7 @@
 
 <script>
 export default {
+  name: 'NumberpadCP',
   data: function() {
     return {
       backIcon: '<',
@@ -110,12 +111,14 @@ export default {
   methods: {
     onTap(e) {
       const el = e.currentTarget;
-      clearTimeout(this.timeout);
-      el.classList.add('pressed');
-      this.timeout = setTimeout(() => {
-        el.classList.remove('pressed');
-      }, 200);
-      this.$emit('tapped-button', el.innerText.trim());
+      if (el) {
+        clearTimeout(this.timeout);
+        el.classList.add('pressed');
+        this.timeout = setTimeout(() => {
+          el.classList.remove('pressed');
+        }, 200);
+        this.$emit('tapped-button', el.innerText.trim());
+      }
     },
     onKeyup(e) {
       const isBackspace = e.key === 'Backspace';
@@ -136,17 +139,18 @@ export default {
 
       if (isNumber || isBackspace || isEnter) {
         const buttonEl = this.$refs[`button-${e.key}`];
-        buttonEl.classList.add('pressed');
+        if (buttonEl) {
+          buttonEl.classList.add('pressed');
 
-        setTimeout(() => {
-          buttonEl.classList.remove('pressed');
-        }, 200);
+          setTimeout(() => {
+            buttonEl.classList.remove('pressed');
+          }, 200);
+        }
       }
     },
-    onKeyDown(e) {
-    },
+    onKeyDown() {},
     isNumber(value) {
-      var reg = new RegExp('^[0-9]+$');
+      const reg = /^[0-9]+$/;
       return reg.test(value);
     }
   },
@@ -162,7 +166,7 @@ export default {
     grid-gap: 3px;
     grid-template-columns: 1fr 1fr 1fr;
     margin-bottom: 3px;
-    font-family: helvetica;
+    font-family: helvetica, sans-serif;
 
     .button {
       height: $block-height;
