@@ -29,7 +29,7 @@
         </h2>
         <div
           class="block income"
-          :class="{ active: selectedField === 'firstSalary' }"
+          :class="{ active: selectedField.value === 'firstSalary' }"
         >
           <span v-if="firstPerson.firstSalary">
             {{ currency }}
@@ -56,7 +56,7 @@
         </h2>
         <div
           class="block income"
-          :class="{ active: selectedField === 'secondSalary' }"
+          :class="{ active: selectedField.value === 'secondSalary' }"
         >
           <span v-if="firstPerson.secondSalary">
             {{ currency }}
@@ -75,17 +75,17 @@
 
     <section
       class="expenses"
-      :class="{ active: selectedField === 'expenses' }"
+      :class="{ active: selectedField.value === 'expenses' }"
     >
       <div class="block label">
         Expenses
       </div>
       <div class="block value">
-        <span v-if="expenses">
+        <span v-if="expenses.value">
           {{ currency }}
         </span>
         <input
-          v-model="expenses"
+          v-model="expenses.value"
           type="text"
           placeholder="expenses"
           tabindex="5"
@@ -101,8 +101,7 @@
       @click="calculate"
     > Split </a>
 
-    <NumberpadCP
-      v-if="showNumberpad && !shouldShowResults"
+    <NumberPad
       @tapped-button="onTapButtonNumberpad"
     />
 
@@ -155,70 +154,61 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { ref, reactive, computed } from 'vue';
+import { useStore } from 'vuex';
 
-import NumberpadCP from './Numberpad.vue';
+import NumberPad from './NumberPad.vue';
 import ShareCanvas from './ShareCanvas.vue';
 
 export default {
   components: {
-    NumberpadCP,
+    NumberPad,
     ShareCanvas,
   },
-  data() {
-    return {
-      firstSalary: '0',
-      secondSalary: '0',
-      expenses: 0,
-      showNumberpad: true,
-      selectedField: 'firstSalary',
-      showCanvas: false
+  setup() {
+    const store = useStore();
+
+    const firstSalary = ref('0');
+    const secondSalary = ref('0');
+    const expenses = ref(0);
+    const showNumberPad = ref(true);
+    const selectedField = ref('firstSalary');
+
+    const firstPerson = computed(() => store.state.App.firstPerson);
+    const secondPerson = computed(() => store.state.App.secondPerson);
+    const currency = computed(() => store.state.App.currency);
+    const basePercentage = computed(() => store.state.App.basePercentage);
+
+    const disabled = computed(() => {
+      return firstSalary.value === '0' || secondSalary.value === '0' || expenses.value === '0';
+    });
+
+    const shouldShowResults = computed(() => basePercentage.value !== 0);
+
+    const firstPersonResultName = computed(() => {
+      return firstPerson.value.name ? firstPerson.value.name : 'First person';
+    });
+
+    const secondPersonResultName = computed(() => {
+      return secondPerson.value.name ? secondPerson.value.name : 'Second person';
+    });
+
+    const onClickClear = () => {
+      firstSalary.value = '0';
+      secondSalary.value = '0';
+      expenses.value = '0';
+      store.commit('App/reset');
     };
-  },
-  computed: {
-    ...mapState('App', [
-      'firstPerson',
-      'secondPerson',
-      'currency',
-      'sumOfDebts',
-      'basePercentage',
-    ]),
-    disabled() {
-      const { firstSalary, secondSalary, expenses } = this;
-      return firstSalary === '0' || secondSalary === '0' || expenses === '0';
-    },
-    shouldShowResults() {
-      return this.basePercentage !== 0;
-    },
-    firstPersonResultName() {
-      return this.firstPerson.name ? this.firstPerson.name : 'First person';
-    },
-    secondPersonResultName() {
-      return this.secondPerson.name ? this.secondPerson.name : 'Second person';
-    },
-  },
-  methods: {
-    ...mapMutations('App', [
-      'updateFirstPerson',
-      'updateSecondPerson',
-      'setBasePercentage',
-      'setDebts',
-      'reset',
-    ]),
-    onClickClear() {
-      this.firstSalary = '0';
-      this.secondSalary = '0';
-      this.expenses = '0';
-      this.reset();
-    },
-    setSelectedField(field) {
-      this.selectedField = field;
-    },
-    onTapButtonNumberpad(tappedButton) {
-      let currentField = this[this.selectedField];
+
+    const setSelectedField = (field) => {
+      selectedField.value = field;
+    };
+
+    const onTapButtonNumberPad = (tappedButton) => {
+      let currentField = selectedField.value;
 
       if (tappedButton === '<') {
-        this[this.selectedField] = '0';
+        selectedField.value = '0';
         return;
       }
 
@@ -229,85 +219,71 @@ export default {
 
       if (currentField.length > 7) return;
 
-      this[this.selectedField] =
-        this[this.selectedField] === '0'
-          ? tappedButton
-          : this[this.selectedField] + tappedButton;
-    },
-    calculate() {
-      if (this.disabled) return;
+      selectedField.value = selectedField.value === '0'
+        ? tappedButton
+        : selectedField.value + tappedButton;
+    };
+
+    const calculate = () => {
+      if (disabled.value) return;
 
       let sum = 0;
       let incrementPercent = 0;
       const format = (val, decimals = 1) => parseFloat(val.toFixed(decimals));
 
       const p1 = {
-        salary: this.firstSalary,
+        salary: firstSalary.value,
         total: 0,
       };
       const p2 = {
-        salary: this.secondSalary,
+        salary: secondSalary.value,
         total: 0,
       };
 
-      while (sum <= this.expenses) {
-        p1.total = format((Number(this.firstSalary) / 100) * incrementPercent, 0);
-        p2.total = format((Number(this.secondSalary) / 100) * incrementPercent, 0);
+      while (sum <= expenses.value) {
+        p1.total = format((Number(firstSalary.value) / 100 * incrementPercent), 0);
+        p2.total = format((Number(secondSalary.value) / 100 * incrementPercent), 0);
 
         sum = p1.total + p2.total;
         incrementPercent += 0.01;
       }
 
-      this.setDebts(this.expenses);
-      this.setBasePercentage(format(incrementPercent));
-      this.updateFirstPerson(p1);
-      this.updateSecondPerson(p2);
-    },
+      store.commit('App/setDebts', expenses.value);
+      store.commit('App/setBasePercentage', format(incrementPercent));
+      store.commit('App/updateFirstPerson', p1);
+      store.commit('App/updateSecondPerson', p2);
+    };
+
+    return {
+      firstSalary,
+      secondSalary,
+      expenses,
+      showNumberPad,
+      selectedField,
+      firstPerson,
+      secondPerson,
+      currency,
+      basePercentage,
+      disabled,
+      shouldShowResults,
+      firstPersonResultName,
+      secondPersonResultName,
+      onClickClear,
+      setSelectedField,
+      onTapButtonNumberPad,
+      calculate,
+    };
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-@import "../styles/variables";
+<style scoped>
+
+  @import url("../styles/variables.css");
 
 @keyframes blink-animation {
   to {
     visibility: hidden;
-  }
-}
-@-webkit-keyframes blink-animation {
-  to {
-    visibility: hidden;
-  }
-}
-
-.App {
-  width: 100%;
-  max-width: 414px;
-  margin: 0 auto;
-  padding: 3px;
-  box-sizing: border-box;
-  font-family: "Helvetica", sans-serif;
-  font-size: 24px;
-  border-radius: 9px;
-  padding-bottom: 38px;
-  border: 10px solid $light-bg;
-  box-shadow: 0px 0px 40px $white;
-  transform: translate3d(-50%, -50%, 0);
-  transition: transform 500ms ease;
-  left: 50%;
-  top: 50%;
-  position: absolute;
-
-  @media only screen and (max-width: 600px) {
-    border: 0;
-    box-shadow: none;
-    border-radius: 0;
-    width: 100vw;
-    max-width: 100vw;
-    margin-top: 0;
-    padding: 38px 0 38px 0;
   }
 
   &.menuOpened {
@@ -317,63 +293,70 @@ export default {
   .bg {
     background-color: $black;
     width: 100%;
+    max-width: 414px;
+    margin: 0 auto;
+    padding: 3px;
+    box-sizing: border-box;
+    font-family: Helvetica;
+    font-size: 24px;
+    border-radius: 9px;
+    padding-bottom: 38px;
+    position: relative;
+    border: 10px solid var(--light-bg);
+    box-shadow: 0px 0px 40px var(--white);
+    transform: translate3d(-50%, -50%, 0);
+    transition: transform 500ms ease;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+  }
+
+  .App.menuOpened {
+    transform: translate3d(-25vw, -50%, 0);
+  }
+
+  .App .bg {
+    background-color: var(--black);
+    width: 100%;
     height: 100%;
     position: absolute;
     z-index: -1;
     border-radius: 9px;
     left: 0;
     top: 0;
-
-    @media only screen and (max-width: 600px) {
-      border-radius: 0;
-    }
   }
 
-  header {
+  .App header {
     margin-bottom: 3px;
     border-radius: 10px 10px 0 0;
     overflow: hidden;
-    .wrap-logo {
-      display: grid;
-      width: 100%;
-      grid-gap: 3px;
-      grid-template-columns: 1fr 1fr 1fr;
-
-      .logo {
-        height: 70%;
-      }
-
-      .block-02,
-      .block-03,
-      .block-04 {
-        height: $block-height-header;
-        display: flex;
-      }
-      .block-03 {
-        width: 232px;
-        display: flex;
-        justify-content: center;
-        @media only screen and (max-width: 600px) {
-          width: 62vw;
-        }
-      }
-    }
   }
 
-  .block {
-    background-color: $light-bg;
+  .App header .wrap-logo {
+    display: grid;
+    width: 100%;
+    grid-gap: 3px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .App header .wrap-logo .logo {
+    height: 70%;
+  }
+
+  .App .block {
+    background-color: var(--light-bg);
     box-sizing: border-box;
     border-radius: 9px;
     padding: 0 29px;
     display: flex;
-    height: $block-height;
-    min-height: $block-min-height;
-    max-height: $block-max-height;
+    height: var(--block-height);
+    min-height: var(--block-min-height);
+    max-height: var(--block-max-height);
     justify-content: center;
     align-items: center;
   }
 
-  .input {
+  .App .input {
     background-color: transparent;
     border: 0;
     width: 100%;
@@ -382,170 +365,183 @@ export default {
     font-size: 24px;
     outline: none;
     position: relative;
-
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    &[type="number"] {
-      appearance: textfield;
-    }
-
-    &::placeholder {
-      color: $gray;
-    }
-
-    &.firstSalaryField,
-    &.secondSalaryField {
-      color: $green;
-    }
-    &.expensesField {
-      color: $red;
-    }
   }
 
-  .incomings {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-
-    .wrap-income {
-      display: grid;
-      grid-gap: 3px;
-      grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
-      height: $block-height;
-      min-height: $block-min-height;
-      max-height: $block-max-height;
-      margin-bottom: 3px;
-
-      .label,
-      .income {
-        display: flex;
-        align-items: center;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 24px;
-        line-height: 24px;
-        text-align: center;
-      }
-      .label {
-        justify-content: center;
-      }
-      .income {
-        color: $green;
-        justify-content: flex-end;
-        &:focus {
-          background-color: red;
-        }
-      }
-      .firstSalaryField {
-        height: 100%;
-      }
-    }
+  .App .input::-webkit-outer-spin-button,
+  .App .input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 
-  .expenses {
-    display: grid;
-    grid-gap: 3px;
-    grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
-    height: $block-height;
-    min-height: $block-min-height;
-    max-height: $block-max-height;
-    margin-bottom: 3px;
-    &.active {
-      .value {
-        &::before {
-          opacity: 1;
-          animation: blink-animation 1s steps(5, start) infinite;
-        }
-      }
-    }
-
-    .label {
-      background-color: $red;
-      color: $black;
-    }
-    .value {
-      background-color: $black;
-      color: $red;
-      justify-content: flex-end;
-
-      &::before {
-        content: "";
-        width: 4px;
-        height: 40px;
-        background-color: $red;
-        margin-right: 5px;
-        opacity: 0;
-      }
-    }
+  .App .input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
 
-  .results {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    .title {
-      margin-bottom: 3px;
-    }
-    .wrap-results {
-      display: grid;
-      grid-gap: 3px;
-      grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
-      height: $block-height;
-      min-height: $block-min-height;
-      max-height: $block-max-height;
-      margin-bottom: 3px;
-
-      .value {
-        justify-content: flex-end;
-        color: $blue;
-      }
-    }
-    .percent-each {
-      margin-bottom: 3px;
-    }
-    .wrap-buttons {
-      display: grid;
-      grid-gap: 3px;
-      grid-template-columns: minmax(calc(67% - 3px), 1fr) minmax(33%, 1fr);
-      height: $block-height;
-      min-height: $block-min-height;
-      max-height: $block-max-height;
-      margin-bottom: 3px;
-
-      .share {
-        background-color: $blue;
-        color: $white;
-      }
-      .clear {
-        background-color: $red;
-        color: $black;
-      }
-    }
+  .App .input::placeholder {
+    color: var(--gray);
   }
 
-  .split-btn {
-    height: $block-height;
-    min-height: $block-min-height;
-    max-height: $block-max-height;
+  .App .input.firstSalaryField,
+  .App .input.secondSalaryField {
+    color: var(--green);
+  }
+
+  .App .input.expensesField {
+    color: var(--red);
+  }
+
+  .App .split-btn {
+    height: var(--block-height);
+    min-height: var(--block-min-height);
+    max-height: var(--block-max-height);
     width: 100%;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
     line-height: 24px;
     text-align: center;
-    background-color: $blue;
-    color: $light-bg;
+    background-color: var(--blue);
+    color: var(--light-bg);
     border: 0;
     outline: 0;
     margin-bottom: 3px;
     cursor: url(../assets/cursor-red.png), auto;
-    &:hover,
-    &:focus {
-      background-color: #26adef;
-    }
   }
-}
+
+  .App .split-btn:hover,
+  .App .split-btn:focus {
+    background-color: var(--split-btn-hover);
+  }
+
+  .incomings {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .wrap-income {
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
+    height: var(--block-height);
+    min-height: var(--block-min-height);
+    max-height: var(--block-max-height);
+    margin-bottom: 3px;
+  }
+
+  .label,
+  .income {
+    display: flex;
+    align-items: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  .label {
+    justify-content: center;
+  }
+
+  .income {
+    color: var(--green);
+    justify-content: flex-end;
+  }
+
+  .firstSalaryField {
+    height: 100%;
+  }
+
+  .expenses {
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
+    height: var(--block-height);
+    min-height: var(--block-min-height);
+    max-height: var(--block-max-height);
+    margin-bottom: 3px;
+  }
+
+  .expenses.active .value::before {
+    opacity: 1;
+    animation: blink-animation 1s steps(5, start) infinite;
+  }
+
+  .expenses .label {
+    background-color: var(--red);
+    color: var(--black);
+  }
+
+  .expenses .value {
+    background-color: var(--black);
+    color: var(--red);
+    justify-content: flex-end;
+    position: relative;
+  }
+
+  .expenses .value::before {
+    content: '';
+    width: 4px;
+    height: 40px;
+    background-color: var(--red);
+    margin-right: 5px;
+    opacity: 0;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .results {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .results .title {
+    margin-bottom: 3px;
+  }
+
+  .results .wrap-results {
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
+    height: var(--block-height);
+    min-height: var(--block-min-height);
+    max-height: var(--block-max-height);
+    margin-bottom: 3px;
+  }
+
+  .results .wrap-results .value {
+    justify-content: flex-end;
+    color: var(--blue);
+  }
+
+  .results .percent-each {
+    margin-bottom: 3px;
+  }
+
+  .results .wrap-buttons {
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: minmax(calc(67% - 3px), 1fr) minmax(33%, 1fr);
+    height: var(--block-height);
+    min-height: var(--block-min-height);
+    max-height: var(--block-max-height);
+    margin-bottom: 3px;
+  }
+
+  .results .wrap-buttons .share {
+    background-color: var(--blue);
+    color: var(--white);
+  }
+
+  .results .wrap-buttons .clear {
+    background-color: var(--red);
+    color: var(--black);
+  }
+
 </style>
