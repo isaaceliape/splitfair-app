@@ -3,27 +3,31 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "deploy": "vue-cli-service build && rsync -av ./dist/* ../splitsmart-deploy/"
+    "serve": "npx vue-cli-service serve",
+    "build": "npx vue-cli-service build",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix",
+    "deploy": "npx vue-cli-service build && rsync -av ./dist/* ../splitsmart-deploy/"
   },
   "dependencies": {
-    "core-js": "^3.8.3",
-    "konva": "^9.2.0",
-    "sass-loader": "^13.3.2",
-    "vue": "^3.3.4",
-    "vue2-touch-events": "^3.2.2",
-    "vuex": "^4.0.2"
+    "core-js": "^3.6.5",
+    "konva": "^6.0.0",
+    "vue": "^3.4.21",
+    "vue-range-slider": "^0.6.0",
+    "vue2-touch-events": "^2.2.1",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
+    "@vue/compiler-sfc": "^3.4.21",
+    "@vue/eslint-config-airbnb": "^6.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-vue": "^9.21.0"
   },
   "eslintConfig": {
     "root": true,
@@ -34,6 +38,12 @@
       "plugin:vue/vue3-essential",
       "eslint:recommended"
     ],
+    "rules": {
+      "quotes": [
+        "error",
+        "single"
+      ]
+    },
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
