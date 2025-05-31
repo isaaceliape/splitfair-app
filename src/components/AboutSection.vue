@@ -1,15 +1,13 @@
 <template>
   <section
     class="AboutSection"
-    :class="{ showOptions }"
+    :class="{ showOptions: showOptions.value }"
   >
     <a
       href="#"
       class="about"
       @click="onClickAboutBtn"
-    >
-      about
-    </a>
+    > about </a>
     <div class="overlay">
       <div
         class="left-content"
@@ -24,95 +22,52 @@
   </section>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      showOptions: false,
-    };
-  },
-  methods: {
-    onClickAboutBtn() {
-      this.showOptions = !this.showOptions;
-      this.$emit('is-menun-open', this.showOptions);
-    }
-  },
-};
+<script setup>
+import { ref } from 'vue';
+
+const showOptions = ref(false);
+const emit = defineEmits(['is-menun-open']);
+
+function onClickAboutBtn(e) {
+  showOptions.value = !showOptions.value;
+  emit('is-menun-open', showOptions.value);
+}
 </script>
 
-<style lang="scss" scoped>
-  @import '../styles/variables';
+<style lang="css" scoped>
+@import url("../styles/variables.css");
 
-  .AboutSection {
-    position: absolute;
-    width: 0;
-    height: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
+.AboutSection {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
 
-    &.showOptions {
-      z-index: 4;
+.AboutSection.showOptions {
+  z-index: 4;
+}
 
-      .overlay {
-        transform: translateX(-100vw);
-      }
-    }
-    .about {
-      position: absolute;
-      text-decoration: none;
-      color: $black;
-      font-size: 28px;
-      bottom: 4vw;
-      right: 5vw;
-      z-index: 0;
-      white-space: nowrap;
+.overlay {
+  transform: translateX(-100vw);
+}
 
-      &:hover {
-        color: $red;
-      }
-    }
-  }
+.about {
+  position: absolute;
+  text-decoration: none;
+}
 
-  .overlay {
-    position: absolute;
-    left: 0;
-    top: -100vh;
-    width: 100vw;
-    height: 100vh;
-    transition: 500ms ease;
-    transform: translateX(0vw);
+.left-content {
+  left: 0;
+  width: 50vw;
+  height: 100%;
+  cursor: pointer;
+}
 
-    .left-content {
-      position: absolute;
-      left: 0;
-      width: 50vw;
-      height: 100%;
-      cursor: pointer;
-      cursor: url('../assets/cursor-cross-green.png'), auto;
-    }
-    .right-content {
-      width: 50vw;
-      position: absolute;
-      top: 7px;
-      right: 7px;
-      height: calc(100% - 14px);
-      background-color: $green;
-      text-align: left;
-      padding: 2vw 7vw;
-      box-sizing: border-box;
-      overflow: auto;
-      cursor: url('../assets/cursor-black.png'), auto;
-      border-radius: 24px;
-
-      .title {
-        font-size: 128px;
-        text-decoration: none;
-        color: $black;
-        font-weight: normal;
-        position: absolute;
-        bottom: 25px;
-      }
-    }
-  }
+.right-content {
+  color: var(--black);
+}
 </style>
