@@ -14,10 +14,15 @@
     "titleBar.activeForeground": "#15202b",
     "titleBar.inactiveBackground": "#42b88399",
     "titleBar.inactiveForeground": "#15202b99",
-    "commandCenter.border": "#15202b99",
-    "sash.hoverBorder": "#65c89b",
-    "statusBarItem.remoteBackground": "#42b883",
-    "statusBarItem.remoteForeground": "#15202b"
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
   },
-  "peacock.color": "#42b883"
+  "eslint.useFlatConfig": false,
+  "eslint.run": "onType",
+  "eslint.useESLintClass": true,
+  "eslint.options": {
+    "resolvePluginsRelativeTo": "./node_modules"
+  },
+  "eslint.workingDirectories": [{ "mode": "auto" }]
 }
