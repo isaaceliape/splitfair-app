@@ -1,4 +1,4 @@
-  $light-bg: #D9E4EA; 
+$light-bg: #D9E4EA; 
   $dark-bg: #333333; 
   $gray: #BDBDBD; 
   $black: #0D0B0D; 
@@ -8,7 +8,7 @@
   $white: #ffffff;
   $light-bg-02: #CBC9C9;
 
-  $media-query-mobile: only screen and (max-width: 600px);
+  $media-query-mobile: '(max-width: 600px)';
 
   $block-height: calc((100vh / 9) - 11px);
   $block-min-height: 55px;
