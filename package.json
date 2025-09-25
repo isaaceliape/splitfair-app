@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "npx vue-cli-service serve",
-    "build": "npx vue-cli-service build",
-    "lint": "npx eslint .",
-    "lint:fix": "npx eslint . --fix",
-    "deploy": "npx vue-cli-service build && rsync -av ./dist/* ../splitsmart-deploy/"
+    "serve": "bunx vue-cli-service serve",
+    "build": "bunx vue-cli-service build",
+    "lint": "bunx eslint .",
+    "lint:fix": "bunx eslint . --fix",
+    "format": "bunx prettier --write .",
+    "format:check": "bunx prettier --check .",
+    "deploy": "bunx vue-cli-service build && rsync -av ./dist/* ../splitsmart-deploy/"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -26,8 +28,11 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-vue": "^9.21.0"
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-vue": "^9.21.0",
+    "prettier": "^3.6.2"
   },
   "eslintConfig": {
     "root": true,

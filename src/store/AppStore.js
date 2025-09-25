@@ -1,4 +1,3 @@
-
 export default {
   namespaced: true,
   state: {
@@ -8,7 +7,7 @@ export default {
       percent: 0,
       total: 0,
     },
-    secondPerson:  {
+    secondPerson: {
       name: 'person 2',
       salary: 0,
       percent: 0,

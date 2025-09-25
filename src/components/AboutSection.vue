@@ -1,22 +1,10 @@
 <template>
-  <section
-    class="AboutSection"
-    :class="{ showOptions: showOptions.value }"
-  >
-    <a
-      href="#"
-      class="about"
-      @click="onClickAboutBtn"
-    > about </a>
+  <section class="AboutSection" :class="{ showOptions: showOptions.value }">
+    <a href="#" class="about" @click="onClickAboutBtn"> about </a>
     <div class="overlay">
-      <div
-        class="left-content"
-        @click="onClickAboutBtn"
-      />
+      <div class="left-content" @click="onClickAboutBtn" />
       <div class="right-content">
-        <h1 class="title">
-          About
-        </h1>
+        <h1 class="title">About</h1>
       </div>
     </div>
   </section>
@@ -35,7 +23,7 @@ function onClickAboutBtn(e) {
 </script>
 
 <style lang="css" scoped>
-@import url("../styles/variables.css");
+@import url('../styles/variables.css');
 
 .AboutSection {
   position: absolute;

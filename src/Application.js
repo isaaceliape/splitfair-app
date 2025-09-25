@@ -5,12 +5,12 @@ import DownloadAppSection from './components/DownloadAppSection.vue';
 import AboutSection from './components/AboutSection.vue';
 
 export default {
-  name: "SplitfairApplication",
+  name: 'SplitfairApplication',
   components: { App, DownloadAppSection, AboutSection },
   data() {
     return {
       menuOpened: false,
-      desktopOnly: true
+      desktopOnly: true,
     };
   },
   mounted() {
@@ -29,6 +29,6 @@ export default {
     },
     screenTest(e) {
       this.desktopOnly = !e.matches;
-    }
-  }
+    },
+  },
 };

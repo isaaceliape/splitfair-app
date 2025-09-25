@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-show="false"
-    ref="canvas"
-    class="ShareCanvas"
-  />
+  <div v-show="false" ref="canvas" class="ShareCanvas" />
 </template>
 
 <script setup>
@@ -55,7 +51,7 @@ const LOGO = {
   width: 228,
   height: HEADER_HEIGHT,
   x: SMALL_BOX.width + 8,
-  y: GAP
+  y: GAP,
 };
 
 const props = defineProps({

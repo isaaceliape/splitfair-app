@@ -5,11 +5,7 @@
       <div class="wrap-logo">
         <div class="block block-02" />
         <div class="block block-03">
-          <img
-            src="../assets/logo.svg"
-            alt="logo"
-            class="logo"
-          >
+          <img src="../assets/logo.svg" alt="logo" class="logo" />
         </div>
         <div class="block block-04" />
       </div>
@@ -25,12 +21,9 @@
             tabindex="1"
             class="input"
             autofocus
-          >
+          />
         </h2>
-        <div
-          class="block income"
-          :class="{ active: selectedField.value === 'firstSalary' }"
-        >
+        <div class="block income" :class="{ active: selectedField.value === 'firstSalary' }">
           <span v-if="firstPerson.firstSalary">
             {{ currency }}
           </span>
@@ -41,7 +34,7 @@
             tabindex="3"
             class="input firstSalaryField"
             @focus="setSelectedField('firstSalary')"
-          >
+          />
         </div>
       </div>
       <div class="wrap-income">
@@ -52,12 +45,9 @@
             placeholder="Name"
             tabindex="2"
             class="input"
-          >
+          />
         </h2>
-        <div
-          class="block income"
-          :class="{ active: selectedField.value === 'secondSalary' }"
-        >
+        <div class="block income" :class="{ active: selectedField.value === 'secondSalary' }">
           <span v-if="firstPerson.secondSalary">
             {{ currency }}
           </span>
@@ -68,18 +58,13 @@
             tabindex="4"
             class="input secondSalaryField"
             @focus="setSelectedField('secondSalary')"
-          >
+          />
         </div>
       </div>
     </section>
 
-    <section
-      class="expenses"
-      :class="{ active: selectedField.value === 'expenses' }"
-    >
-      <div class="block label">
-        Expenses
-      </div>
+    <section class="expenses" :class="{ active: selectedField.value === 'expenses' }">
+      <div class="block label">Expenses</div>
       <div class="block value">
         <span v-if="expenses.value">
           {{ currency }}
@@ -91,56 +76,32 @@
           tabindex="5"
           class="input expensesField"
           @focus="setSelectedField('expenses')"
-        >
+        />
       </div>
     </section>
 
-    <a
-      class="block split-btn"
-      tabindex="6"
-      @click="calculate"
-    > Split </a>
+    <a class="block split-btn" tabindex="6" @click="calculate"> Split </a>
 
-    <NumberPad
-      @tapped-button="onTapButtonNumberpad"
-    />
+    <NumberPad @tapped-button="onTapButtonNumberpad" />
 
-    <section
-      v-if="shouldShowResults"
-      class="results"
-    >
-      <div class="block title">
-        Results
-      </div>
+    <section v-if="shouldShowResults" class="results">
+      <div class="block title">Results</div>
       <div class="wrap-results">
         <div class="block label">
           {{ firstPersonResultName }}
         </div>
-        <div class="block value">
-          {{ currency }}{{ firstPerson.total }}
-        </div>
+        <div class="block value">{{ currency }}{{ firstPerson.total }}</div>
       </div>
       <div class="wrap-results">
         <div class="block label">
           {{ secondPersonResultName }}
         </div>
-        <div class="block value">
-          {{ currency }}{{ secondPerson.total }}
-        </div>
+        <div class="block value">{{ currency }}{{ secondPerson.total }}</div>
       </div>
-      <div class="block percent-each">
-        %{{ basePercentage }} each
-      </div>
+      <div class="block percent-each">%{{ basePercentage }} each</div>
       <div class="wrap-buttons">
-        <div class="block share">
-          Share
-        </div>
-        <div
-          class="block clear"
-          @click="onClickClear"
-        >
-          Clear
-        </div>
+        <div class="block share">Share</div>
+        <div class="block clear" @click="onClickClear">Clear</div>
       </div>
     </section>
 
@@ -219,9 +180,8 @@ export default {
 
       if (currentField.length > 7) return;
 
-      selectedField.value = selectedField.value === '0'
-        ? tappedButton
-        : selectedField.value + tappedButton;
+      selectedField.value =
+        selectedField.value === '0' ? tappedButton : selectedField.value + tappedButton;
     };
 
     const calculate = () => {
@@ -241,8 +201,8 @@ export default {
       };
 
       while (sum <= expenses.value) {
-        p1.total = format((Number(firstSalary.value) / 100 * incrementPercent), 0);
-        p2.total = format((Number(secondSalary.value) / 100 * incrementPercent), 0);
+        p1.total = format((Number(firstSalary.value) / 100) * incrementPercent, 0);
+        p2.total = format((Number(secondSalary.value) / 100) * incrementPercent, 0);
 
         sum = p1.total + p2.total;
         incrementPercent += 0.01;
@@ -278,270 +238,274 @@ export default {
 </script>
 
 <style scoped>
-
-  @import url("../styles/variables.css");
+@import url('../styles/variables.css');
 
 @keyframes blink-animation {
   to {
     visibility: hidden;
   }
+}
 
-  &.menuOpened {
-    transform: translate3d(-25vw, -50%, 0);
-  }
+.menuOpened {
+  transform: translate3d(-25vw, -50%, 0);
+}
 
-  .bg {
-    background-color: $black;
-    width: 100%;
-    max-width: 414px;
-    margin: 0 auto;
-    padding: 3px;
-    box-sizing: border-box;
-    font-family: Helvetica;
-    font-size: 24px;
-    border-radius: 9px;
-    padding-bottom: 38px;
-    position: relative;
-    border: 10px solid var(--light-bg);
-    box-shadow: 0px 0px 40px var(--white);
-    transform: translate3d(-50%, -50%, 0);
-    transition: transform 500ms ease;
-    left: 50%;
-    top: 50%;
-    position: absolute;
-  }
+.bg {
+  display: none;
+  background-color: $black;
+  width: 100%;
+  max-width: 414px;
+  margin: 0 auto;
+  padding: 3px;
+  box-sizing: border-box;
+  font-family: Helvetica;
+  font-size: 24px;
+  border-radius: 9px;
+  padding-bottom: 38px;
+  position: relative;
+  border: 10px solid var(--light-bg);
+  box-shadow: 0px 0px 40px var(--white);
+  transform: translate3d(-50%, -50%, 0);
+  transition: transform 500ms ease;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+}
 
-  .App.menuOpened {
-    transform: translate3d(-25vw, -50%, 0);
-  }
+.App {
+  width: 400px;
+}
 
-  .App .bg {
-    background-color: var(--black);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: -1;
-    border-radius: 9px;
-    left: 0;
-    top: 0;
-  }
+.App.menuOpened {
+  transform: translate3d(-25vw, -50%, 0);
+}
 
-  .App header {
-    margin-bottom: 3px;
-    border-radius: 10px 10px 0 0;
-    overflow: hidden;
-  }
+.App .bg {
+  background-color: var(--black);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  border-radius: 9px;
+  left: 0;
+  top: 0;
+}
 
-  .App header .wrap-logo {
-    display: grid;
-    width: 100%;
-    grid-gap: 3px;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+.App header {
+  margin-bottom: 3px;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
 
-  .App header .wrap-logo .logo {
-    height: 70%;
-  }
+.App header .wrap-logo {
+  display: grid;
+  width: 100%;
+  grid-gap: 3px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
 
-  .App .block {
-    background-color: var(--light-bg);
-    box-sizing: border-box;
-    border-radius: 9px;
-    padding: 0 29px;
-    display: flex;
-    height: var(--block-height);
-    min-height: var(--block-min-height);
-    max-height: var(--block-max-height);
-    justify-content: center;
-    align-items: center;
-  }
+.App header .wrap-logo .logo {
+  height: 70%;
+}
 
-  .App .input {
-    background-color: transparent;
-    border: 0;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    font-size: 24px;
-    outline: none;
-    position: relative;
-  }
+.App .block {
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: 9px;
+  padding: 0 29px;
+  display: flex;
+  height: var(--block-height);
+  min-height: var(--block-min-height);
+  max-height: var(--block-max-height);
+  justify-content: center;
+  align-items: center;
+}
 
-  .App .input::-webkit-outer-spin-button,
-  .App .input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+.App .input {
+  background-color: transparent;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 24px;
+  outline: none;
+  position: relative;
+}
 
-  .App .input[type=number] {
-    -moz-appearance: textfield;
-    appearance: textfield;
-  }
+.App .input::-webkit-outer-spin-button,
+.App .input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
-  .App .input::placeholder {
-    color: var(--gray);
-  }
+.App .input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
 
-  .App .input.firstSalaryField,
-  .App .input.secondSalaryField {
-    color: var(--green);
-  }
+.App .input::placeholder {
+  color: var(--gray);
+}
 
-  .App .input.expensesField {
-    color: var(--red);
-  }
+.App .input.firstSalaryField,
+.App .input.secondSalaryField {
+  color: var(--green);
+}
 
-  .App .split-btn {
-    height: var(--block-height);
-    min-height: var(--block-min-height);
-    max-height: var(--block-max-height);
-    width: 100%;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 24px;
-    text-align: center;
-    background-color: var(--blue);
-    color: var(--light-bg);
-    border: 0;
-    outline: 0;
-    margin-bottom: 3px;
-    cursor: url(../assets/cursor-red.png), auto;
-  }
+.App .input.expensesField {
+  color: var(--red);
+}
 
-  .App .split-btn:hover,
-  .App .split-btn:focus {
-    background-color: var(--split-btn-hover);
-  }
+.App .split-btn {
+  height: var(--block-height);
+  min-height: var(--block-min-height);
+  max-height: var(--block-max-height);
+  width: 100%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 24px;
+  text-align: center;
+  background-color: var(--blue);
+  color: var(--light-bg);
+  border: 0;
+  outline: 0;
+  margin-bottom: 3px;
+  cursor: url(../assets/cursor-red.png), auto;
+}
 
-  .incomings {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
+.App .split-btn:hover,
+.App .split-btn:focus {
+  background-color: var(--split-btn-hover);
+}
 
-  .wrap-income {
-    display: grid;
-    grid-gap: 3px;
-    grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
-    height: var(--block-height);
-    min-height: var(--block-min-height);
-    max-height: var(--block-max-height);
-    margin-bottom: 3px;
-  }
+.incomings {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
-  .label,
-  .income {
-    display: flex;
-    align-items: center;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 24px;
-    text-align: center;
-  }
+.wrap-income {
+  display: grid;
+  grid-gap: 3px;
+  grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
+  height: var(--block-height);
+  min-height: var(--block-min-height);
+  max-height: var(--block-max-height);
+  margin-bottom: 3px;
+}
 
-  .label {
-    justify-content: center;
-  }
+.label,
+.income {
+  display: flex;
+  align-items: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 24px;
+  text-align: center;
+}
 
-  .income {
-    color: var(--green);
-    justify-content: flex-end;
-  }
+.label {
+  justify-content: center;
+}
 
-  .firstSalaryField {
-    height: 100%;
-  }
+.income {
+  color: var(--green);
+  justify-content: flex-end;
+}
 
-  .expenses {
-    display: grid;
-    grid-gap: 3px;
-    grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
-    height: var(--block-height);
-    min-height: var(--block-min-height);
-    max-height: var(--block-max-height);
-    margin-bottom: 3px;
-  }
+.firstSalaryField {
+  height: 100%;
+}
 
-  .expenses.active .value::before {
-    opacity: 1;
-    animation: blink-animation 1s steps(5, start) infinite;
-  }
+.expenses {
+  display: grid;
+  grid-gap: 3px;
+  grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
+  height: var(--block-height);
+  min-height: var(--block-min-height);
+  max-height: var(--block-max-height);
+  margin-bottom: 3px;
+}
 
-  .expenses .label {
-    background-color: var(--red);
-    color: var(--black);
-  }
+.expenses.active .value::before {
+  opacity: 1;
+  animation: blink-animation 1s steps(5, start) infinite;
+}
 
-  .expenses .value {
-    background-color: var(--black);
-    color: var(--red);
-    justify-content: flex-end;
-    position: relative;
-  }
+.expenses .label {
+  background-color: var(--red);
+  color: var(--black);
+}
 
-  .expenses .value::before {
-    content: '';
-    width: 4px;
-    height: 40px;
-    background-color: var(--red);
-    margin-right: 5px;
-    opacity: 0;
-    display: inline-block;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
+.expenses .value {
+  background-color: var(--black);
+  color: var(--red);
+  justify-content: flex-end;
+  position: relative;
+}
 
-  .results {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
+.expenses .value::before {
+  content: '';
+  width: 4px;
+  height: 40px;
+  background-color: var(--red);
+  margin-right: 5px;
+  opacity: 0;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
-  .results .title {
-    margin-bottom: 3px;
-  }
+.results {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
-  .results .wrap-results {
-    display: grid;
-    grid-gap: 3px;
-    grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
-    height: var(--block-height);
-    min-height: var(--block-min-height);
-    max-height: var(--block-max-height);
-    margin-bottom: 3px;
-  }
+.results .title {
+  margin-bottom: 3px;
+}
 
-  .results .wrap-results .value {
-    justify-content: flex-end;
-    color: var(--blue);
-  }
+.results .wrap-results {
+  display: grid;
+  grid-gap: 3px;
+  grid-template-columns: minmax(43%, 1fr) minmax(calc(57% - 3px), 1fr);
+  height: var(--block-height);
+  min-height: var(--block-min-height);
+  max-height: var(--block-max-height);
+  margin-bottom: 3px;
+}
 
-  .results .percent-each {
-    margin-bottom: 3px;
-  }
+.results .wrap-results .value {
+  justify-content: flex-end;
+  color: var(--blue);
+}
 
-  .results .wrap-buttons {
-    display: grid;
-    grid-gap: 3px;
-    grid-template-columns: minmax(calc(67% - 3px), 1fr) minmax(33%, 1fr);
-    height: var(--block-height);
-    min-height: var(--block-min-height);
-    max-height: var(--block-max-height);
-    margin-bottom: 3px;
-  }
+.results .percent-each {
+  margin-bottom: 3px;
+}
 
-  .results .wrap-buttons .share {
-    background-color: var(--blue);
-    color: var(--white);
-  }
+.results .wrap-buttons {
+  display: grid;
+  grid-gap: 3px;
+  grid-template-columns: minmax(calc(67% - 3px), 1fr) minmax(33%, 1fr);
+  height: var(--block-height);
+  min-height: var(--block-min-height);
+  max-height: var(--block-max-height);
+  margin-bottom: 3px;
+}
 
-  .results .wrap-buttons .clear {
-    background-color: var(--red);
-    color: var(--black);
-  }
+.results .wrap-buttons .share {
+  background-color: var(--blue);
+  color: var(--white);
+}
 
+.results .wrap-buttons .clear {
+  background-color: var(--red);
+  color: var(--black);
+}
 </style>

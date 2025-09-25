@@ -1,33 +1,11 @@
 <template>
-  <section
-    class="DownloadAppSection"
-    :class="{ showOptions: showOptions.value }"
-  >
-    <a
-      href="#"
-      class="download-app"
-      @click="onClickDownloadApp"
-    >
-      download app
-    </a>
+  <section class="DownloadAppSection" :class="{ showOptions: showOptions.value }">
+    <a href="#" class="download-app" @click="onClickDownloadApp"> download app </a>
     <div class="overlay">
-      <div
-        class="left-content"
-        @click="onClickDownloadApp"
-      />
+      <div class="left-content" @click="onClickDownloadApp" />
       <div class="right-content">
-        <a
-          href="#"
-          class="link desktop"
-        >
-          Desktop
-        </a>
-        <a
-          href="#"
-          class="link mobile"
-        >
-          Mobile
-        </a>
+        <a href="#" class="link desktop"> Desktop </a>
+        <a href="#" class="link mobile"> Mobile </a>
       </div>
     </div>
   </section>
@@ -47,7 +25,7 @@ const onClickDownloadApp = () => {
 </script>
 
 <style lang="css" scoped>
-@import url("../styles/variables.css");
+@import url('../styles/variables.css');
 
 .DownloadAppSection {
   position: absolute;

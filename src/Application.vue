@@ -1,33 +1,16 @@
 <template>
   <div class="Application">
-    <a
-      v-if="desktopOnly"
-      href="#"
-      :class="{ menuOpened }"
-      class="Application__link logo"
-    >
+    <a v-if="desktopOnly" href="#" :class="{ menuOpened }" class="Application__link logo">
       splitfair
     </a>
 
-    <span
-      v-if="desktopOnly"
-      :class="{ menuOpened }"
-      class="Application__version"
-    >
-      v0.1
-    </span>
+    <span v-if="desktopOnly" :class="{ menuOpened }" class="Application__version"> v0.1 </span>
 
     <App :class="{ menuOpened }" />
 
-    <DownloadAppSection
-      v-if="desktopOnly"
-      @is-menun-open="moveAppSideways"
-    />
+    <DownloadAppSection v-if="desktopOnly" @is-menun-open="moveAppSideways" />
 
-    <AboutSection
-      v-if="desktopOnly"
-      @is-menun-open="moveAppSideways"
-    />
+    <AboutSection v-if="desktopOnly" @is-menun-open="moveAppSideways" />
   </div>
 </template>
 
@@ -36,8 +19,8 @@ import options from './Application.js';
 export default options;
 </script>
 
-<style scoped>
-@import url("./styles/variables.css");
+<style>
+@import url('./styles/variables.css');
 
 * {
   margin: 0;
@@ -54,7 +37,7 @@ body {
 }
 
 .Application {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -64,6 +47,9 @@ body {
   height: 100vh;
   position: relative;
   cursor: url(assets/cursor-red.png), auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .Application__logo {
