@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
     port: 3000,
   },
   build: {
-    outDir: './dist',
+    outDir: './docs',
     assetsDir: 'assets',
     sourcemap: false,
   },
