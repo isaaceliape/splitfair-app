@@ -4,7 +4,7 @@ import legacy from '@vitejs/plugin-legacy';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: mode === 'production' ? '/splitfair-pwa/' : '/',
+  base: '/splitfair-pwa/',
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
@@ -16,8 +16,8 @@ export default defineConfig(({ mode }) => ({
         background_color: '#3367d6',
         display: 'standalone',
         orientation: 'portrait',
-        scope: mode === 'production' ? '/splitfair-pwa/' : '/',
-        start_url: mode === 'production' ? '/splitfair-pwa/' : '/',
+        scope: '/splitfair-pwa/',
+        start_url: '/splitfair-pwa/',
         icons: [
           {
             src: 'icon-72x72.png',
