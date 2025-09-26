@@ -437,7 +437,7 @@
           border: 0;
           outline: 0;
           margin-bottom: 3px;
-           cursor: url(/splitfair-pwa/cursor-red.png), auto;
+            cursor: url(/splitfair-app/cursor-red.png), auto;
         }
 
         .App .split-btn:hover,
@@ -577,7 +577,7 @@
           <div class="wrap-logo">
             <div class="block block-02"></div>
              <div class="block block-03">
-               <img src="/splitfair-pwa/logo.svg" alt="logo" class="logo" />
+                <img src="/splitfair-app/logo.svg" alt="logo" class="logo" />
              </div>
             <div class="block block-04"></div>
           </div>
@@ -690,7 +690,7 @@
           width: 100vw;
           height: 100vh;
           position: relative;
-           cursor: url(/splitfair-pwa/cursor-red.png), auto;
+            cursor: url(/splitfair-app/cursor-red.png), auto;
           display: flex;
           justify-content: center;
           align-items: center;
