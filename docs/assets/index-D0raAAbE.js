@@ -733,3 +733,4 @@
       ${this.desktopOnly?"<download-app-section></download-app-section>":""}
       ${this.desktopOnly?"<about-section></about-section>":""}
     `,this.desktopOnly&&(this.shadowRoot.querySelector("download-app-section").addEventListener("is-menu-open",this.moveAppSideways),this.shadowRoot.querySelector("about-section").addEventListener("is-menu-open",this.moveAppSideways))}}customElements.define("splitfair-application",cl);const ul=document.createElement("splitfair-application");document.getElementById("app").appendChild(ul);
+//# sourceMappingURL=index-D0raAAbE.js.map

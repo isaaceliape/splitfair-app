@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: './docs',
     assetsDir: 'assets',
-    sourcemap: false,
+    sourcemap: true,
   },
   // Since we're using Web Components, we want to preserve the module structure
   esbuild: {
