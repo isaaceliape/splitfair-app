@@ -33,7 +33,6 @@
     "eslint.validate": [
       "javascript",
       "javascriptreact",
-      "vue",
       {
         "language": "html",
         "autoFix": true,
