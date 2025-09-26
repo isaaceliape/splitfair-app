@@ -1,3 +1,9 @@
 node_modules
 .vscode
 dist
+
+# Built files
+main-*.js
+main-*.css
+polyfills-legacy-*.js
+workbox-*.js
