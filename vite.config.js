@@ -4,7 +4,7 @@ import legacy from '@vitejs/plugin-legacy';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/splitfair-pwa/',
+  base: '/',
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
@@ -16,8 +16,8 @@ export default defineConfig(({ mode }) => ({
         background_color: '#3367d6',
         display: 'standalone',
         orientation: 'portrait',
-        scope: '/splitfair-pwa/',
-        start_url: '/splitfair-pwa/',
+        scope: '/',
+        start_url: '/',
         icons: [
           {
             src: 'icon-72x72.png',
