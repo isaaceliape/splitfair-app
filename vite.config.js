@@ -77,11 +77,6 @@ export default defineConfig(({ mode }) => ({
     outDir: './dist',
     assetsDir: 'assets',
     sourcemap: false,
-    rollupOptions: {
-      input: {
-        main: './index.html',
-      },
-    },
   },
   // Since we're using Web Components, we want to preserve the module structure
   esbuild: {
