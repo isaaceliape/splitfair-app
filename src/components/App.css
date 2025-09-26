@@ -22,9 +22,9 @@
 
 .App {
   width: 400px;
-  fill: #D9E4EA;
-  filter: drop-shadow(-9px -14px 39px rgba(255, 255, 255, 0.93));
-  drop-shadow(10px 16px 39px rgba(0, 0, 0, 0.12)) blur(2px);
+  fill: #d9e4ea;
+  filter: drop-shadow(-9px -14px 39px rgba(255, 255, 255, 0.93))
+    drop-shadow(10px 16px 39px rgba(0, 0, 0, 0.12)) blur(2px);
 }
 
 :host(.menuOpened) .App {
@@ -144,7 +144,7 @@
   border: 0;
   outline: 0;
   margin-bottom: 3px;
-    cursor: url(/splitfair-app/cursor-red.png), auto;
+  cursor: url(/splitfair-app/cursor-red.png), auto;
 }
 
 .App .split-btn:hover,

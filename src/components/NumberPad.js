@@ -1,4 +1,4 @@
-import styles from './NumberPad.css?raw';
+import styles from './NumberPad.css?inline';
 
 class NumberPad extends HTMLElement {
   constructor() {

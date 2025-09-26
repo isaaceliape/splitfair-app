@@ -19,9 +19,11 @@
     "konva": "^6.0.0"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.21",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
+    "postcss-preset-env": "^10.4.0",
     "prettier": "^3.6.2",
     "vite": "^5.4.2"
   },

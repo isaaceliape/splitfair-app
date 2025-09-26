@@ -1,4 +1,4 @@
-import styles from './AboutSection.css?raw';
+import styles from './AboutSection.css?inline';
 
 class AboutSection extends HTMLElement {
   constructor() {

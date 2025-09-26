@@ -1,6 +1,6 @@
 import globalStore from '../store/globalStore.js';
 
-import styles from './App.css?raw';
+import styles from './App.css?inline';
 
 class App extends HTMLElement {
   constructor() {

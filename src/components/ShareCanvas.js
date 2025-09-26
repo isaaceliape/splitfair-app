@@ -48,7 +48,7 @@ const LOGO = {
   y: GAP,
 };
 
-import styles from './ShareCanvas.css?raw';
+import styles from './ShareCanvas.css?inline';
 
 class ShareCanvas extends HTMLElement {
   constructor() {

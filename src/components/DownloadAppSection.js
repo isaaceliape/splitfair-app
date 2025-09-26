@@ -1,4 +1,4 @@
-import styles from './DownloadAppSection.css?raw';
+import styles from './DownloadAppSection.css?inline';
 
 class DownloadAppSection extends HTMLElement {
   constructor() {
