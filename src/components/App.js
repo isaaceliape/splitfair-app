@@ -266,7 +266,7 @@ class App extends HTMLElement {
           border: 0;
           outline: 0;
           margin-bottom: 3px;
-          cursor: url(${import.meta.env.BASE_URL}cursor-red.png), auto;
+           cursor: url(/splitfair-pwa/cursor-red.png), auto;
         }
 
         .App .split-btn:hover,
@@ -405,9 +405,9 @@ class App extends HTMLElement {
         <header>
           <div class="wrap-logo">
             <div class="block block-02"></div>
-            <div class="block block-03">
-              <img src="${import.meta.env.BASE_URL}logo.svg" alt="logo" class="logo" />
-            </div>
+             <div class="block block-03">
+               <img src="/splitfair-pwa/logo.svg" alt="logo" class="logo" />
+             </div>
             <div class="block block-04"></div>
           </div>
         </header>
