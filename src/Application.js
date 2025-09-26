@@ -49,7 +49,7 @@ class Application extends HTMLElement {
           width: 100vw;
           height: 100vh;
           position: relative;
-            cursor: url(/splitfair-app/cursor-red.png), auto;
+            cursor: url(/cursor-red.png), auto;
           display: flex;
           justify-content: center;
           align-items: center;

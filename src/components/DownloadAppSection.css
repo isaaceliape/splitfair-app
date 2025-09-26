@@ -54,7 +54,7 @@
   height: 100vh;
   transition: 500ms ease;
   transform: translateX(0vw);
-  background: url(/splitfair-app/desktop_bg.png) 76% center no-repeat;
+  background: url(/desktop_bg.png) 76% center no-repeat;
   background-size: cover;
 }
 
@@ -64,7 +64,7 @@
   width: 50vw;
   height: 100%;
   cursor: pointer;
-  cursor: url(/splitfair-app/cursor-cross-red.png), auto;
+  cursor: url(/cursor-cross-red.png), auto;
 }
 
 .right-content {
@@ -76,7 +76,7 @@
   text-align: left;
   padding: 2vw 7vw;
   box-sizing: border-box;
-  cursor: url(/splitfair-app/cursor-black.png), auto;
+  cursor: url(/cursor-black.png), auto;
 }
 
 .link {
@@ -89,7 +89,7 @@
 
 .link:hover {
   color: var(--white);
-  cursor: url(/splitfair-app/cursor-black.png), auto;
+  cursor: url(/cursor-black.png), auto;
 }
 
 .link.desktop {
