@@ -1,17 +1,14 @@
-import { createApp } from 'vue';
-import { createStore } from 'vuex';
+// Import Web Components
+import './components/AboutSection.js';
+import './components/DownloadAppSection.js';
+import './components/NumberPad.js';
+import './components/ShareCanvas.js';
+import './components/App.js';
+import './Application.js';
 
-import Application from './Application.vue';
-import AppStore from './store/AppStore';
-import Vue2TouchEvents from 'vue2-touch-events';
+// Global CSS variables
+import './styles/variables.css';
 
-const store = createStore({
-  modules: {
-    App: AppStore,
-  },
-});
-
-const app = createApp(Application);
-app.use(store);
-app.use(Vue2TouchEvents);
-app.mount('#app');
+// Initialize the application
+const app = document.createElement('splitfair-application');
+document.getElementById('app').appendChild(app);

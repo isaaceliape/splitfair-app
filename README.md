@@ -2,7 +2,7 @@
 
 ![Splitfair Logo](https://github.com/isaaceliape/splitfair-pwa/blob/master/public/icon-144x144.png?raw=true)
 
-A Progressive Web App (PWA) for splitting bills and expenses fairly between multiple people. Built with Vue.js 3 and modern web technologies.
+A Progressive Web App (PWA) for splitting bills and expenses fairly between multiple people. Built with native Web Components and modern web technologies.
 
 ## Features
 
@@ -15,12 +15,13 @@ A Progressive Web App (PWA) for splitting bills and expenses fairly between mult
 
 ## Tech Stack
 
-- **Framework**: Vue.js 3 (Composition API)
-- **Build Tool**: Vue CLI
+- **Framework**: Native Web Components
+- **Build Tool**: Vite
 - **Runtime**: Bun
-- **Styling**: CSS with CSS Variables
-- **State Management**: Vuex 4
+- **Styling**: CSS with CSS Variables and Shadow DOM
+- **State Management**: Global JavaScript Store
 - **Canvas**: Konva.js for shareable results
+- **PWA**: Vite PWA Plugin
 - **Linting**: ESLint with Prettier integration
 
 ## Project Setup
@@ -40,14 +41,15 @@ bun install
 
 ```bash
 # Start development server with hot reload
-bun run serve
+bun run dev
 ```
 
 ### Building for Production
 
 ```bash
-# Build for production
-bun run build
+# For Web Components, static files are served directly
+# No build step required - files are ready to serve
+bun run preview
 ```
 
 ### Code Quality
@@ -66,8 +68,15 @@ bun run format:check
 ### Deployment
 
 ```bash
-# Build and deploy (custom deployment script)
+# Deploy static files (custom deployment script)
 bun run deploy
+```
+
+### Preview Production Build
+
+```bash
+# Preview the application as it would be served in production
+bun run preview
 ```
 
 ## Project Structure
@@ -79,22 +88,44 @@ splitfair-pwa/
 │   ├── manifest.json      # PWA manifest
 │   └── icons/             # App icons
 ├── src/
-│   ├── components/        # Vue components
-│   │   ├── App.vue       # Main app component
-│   │   ├── NumberPad.vue # Number input component
+│   ├── components/        # Web Components
+│   │   ├── AboutSection.js    # About section component
+│   │   ├── App.js            # Main app component
+│   │   ├── NumberPad.js      # Number input component
+│   │   ├── ShareCanvas.js    # Canvas sharing component
 │   │   └── ...
-│   ├── store/            # Vuex store
+│   ├── store/            # Global state management
+│   │   └── globalStore.js    # Global store (replaces Vuex)
 │   ├── styles/           # Global styles
 │   └── main.js           # App entry point
+├── docs/                 # Documentation
+│   ├── modernize-build-stack-epic.md
+│   ├── web-components-conversion.md
+│   └── ...
 ├── .eslintrc.json        # ESLint configuration
 ├── .prettierrc          # Prettier configuration
-├── vue.config.js        # Vue CLI configuration
+├── vite.config.js       # Vite configuration
+├── bun.lockb            # Bun lockfile
 └── package.json         # Dependencies and scripts
 ```
 
 ## Configuration
 
-See [Vue CLI Configuration Reference](https://cli.vuejs.org/config/) for advanced configuration options.
+- **Vite**: See `vite.config.js` for build configuration
+- **ESLint**: See `.eslintrc.json` for linting rules
+- **Prettier**: See `.prettierrc` for code formatting
+- **PWA**: Configured via Vite PWA plugin
+- **Web Components**: Custom elements are registered in their respective `.js` files
+- **State Management**: Global store configured in `src/store/globalStore.js`
+
+## Bun Features
+
+This project leverages Bun's capabilities:
+
+- **Fast Installation**: `bun install` is significantly faster than npm
+- **Hot Reload**: `bun run dev` provides instant updates during development
+- **Native TypeScript**: Direct execution of TypeScript files
+- **Built-in Tools**: Uses `bunx` for running CLI tools without installation
 
 ## Contributing
 
@@ -102,8 +133,25 @@ See [Vue CLI Configuration Reference](https://cli.vuejs.org/config/) for advance
 2. Create a feature branch
 3. Make your changes
 4. Run `bun run lint` and `bun run format` to ensure code quality
-5. Test your changes
+5. Test your changes in the browser
 6. Submit a pull request
+
+### Development Workflow
+
+```bash
+# Install dependencies (fast with Bun)
+bun install
+
+# Start development with hot reload
+bun run dev
+
+# Run linting and formatting
+bun run lint:fix
+bun run format
+
+# Preview production build
+bun run preview
+```
 
 ## License
 
