@@ -3,45 +3,40 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "bunx vue-cli-service serve",
-    "build": "bunx vue-cli-service build",
-    "lint": "bunx eslint .",
-    "lint:fix": "bunx eslint . --fix",
-    "format": "bunx prettier --write .",
-    "format:check": "bunx prettier --check .",
-    "deploy": "bunx vue-cli-service build && rsync -av ./dist/* ../splitsmart-deploy/"
+    "dev": "vite",
+    "serve": "vite",
+    "build": "vite build",
+    "start": "vite",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "preview": "vite preview",
+    "clean": "rm -rf node_modules bun.lockb && bun install",
+    "test": "echo 'No tests configured yet'"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "konva": "^6.0.0",
-    "vue": "^3.4.21",
-    "vue-range-slider": "^0.6.0",
-    "vue2-touch-events": "^2.2.1",
-    "vuex": "^4.1.0"
+    "konva": "^6.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/cli-service": "^5.0.8",
-    "@vue/compiler-sfc": "^3.4.21",
-    "@vue/eslint-config-airbnb": "^6.0.0",
-    "babel-eslint": "^10.1.0",
+    "@vitejs/plugin-legacy": "^5.4.1",
     "eslint": "^8.57.0",
-    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-vue": "^9.21.0",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "vite": "^5.4.2",
+    "vite-plugin-pwa": "^0.20.1"
   },
   "eslintConfig": {
     "root": true,
     "env": {
+      "browser": true,
+      "es2021": true,
       "node": true
     },
     "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "prettier"
     ],
     "rules": {
       "quotes": [
@@ -50,9 +45,9 @@
       ]
     },
     "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {}
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    }
   },
   "browserslist": [
     "> 1%",
