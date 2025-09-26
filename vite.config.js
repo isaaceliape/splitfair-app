@@ -74,7 +74,7 @@ export default defineConfig(({ mode }) => ({
     port: 3000,
   },
   build: {
-    outDir: './docs',
+    outDir: './',
     assetsDir: 'assets',
     sourcemap: false,
     rollupOptions: {
