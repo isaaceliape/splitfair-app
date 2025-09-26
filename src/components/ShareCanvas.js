@@ -48,6 +48,8 @@ const LOGO = {
   y: GAP,
 };
 
+import styles from './ShareCanvas.css?raw';
+
 class ShareCanvas extends HTMLElement {
   constructor() {
     super();
@@ -86,30 +88,7 @@ class ShareCanvas extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          --light-bg: #d9e4ea;
-          --dark-bg: #333333;
-          --gray: #bdbdbd;
-          --black: #0d0b0d;
-          --green: #0ecb66;
-          --red: #fa4f23;
-          --blue: #0b98dd;
-          --white: #ffffff;
-          --light-bg-02: #cbc9c9;
-          --block-height: calc((100vh / 9) - 11px);
-          --block-min-height: 55px;
-          --block-max-height: 84px;
-          --block-height-header: calc(100vh / 9);
-        }
-
-        .ShareCanvas {
-          position: fixed;
-          left: 50%;
-          top: 50%;
-          transform: translate3d(-150%, -50%, 0);
-        }
-      </style>
+      <style>${styles}</style>
       <div class="ShareCanvas"></div>
     `;
   }

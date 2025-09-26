@@ -1,19 +1,23 @@
+import styles from './NumberPad.css?raw';
+
 class NumberPad extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     this.timeout = null;
+    this.onKeyDownBound = this.onKeyDown.bind(this);
+    this.onKeyupBound = this.onKeyup.bind(this);
   }
 
   connectedCallback() {
     this.render();
-    document.addEventListener('keydown', this.onKeyDown);
-    document.addEventListener('keyup', this.onKeyup);
+    document.addEventListener('keydown', this.onKeyDownBound);
+    document.addEventListener('keyup', this.onKeyupBound);
   }
 
   disconnectedCallback() {
-    document.removeEventListener('keydown', this.onKeyDown);
-    document.removeEventListener('keyup', this.onKeyup);
+    document.removeEventListener('keydown', this.onKeyDownBound);
+    document.removeEventListener('keyup', this.onKeyupBound);
   }
 
   onTap(e) {
@@ -61,73 +65,7 @@ class NumberPad extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          --light-bg: #d9e4ea;
-          --dark-bg: #333333;
-          --gray: #bdbdbd;
-          --black: #0d0b0d;
-          --green: #0ecb66;
-          --red: #fa4f23;
-          --blue: #0b98dd;
-          --white: #ffffff;
-          --light-bg-02: #cbc9c9;
-          --block-height: calc((100vh / 9) - 11px);
-          --block-min-height: 55px;
-          --block-max-height: 84px;
-          --block-height-header: calc(100vh / 9);
-        }
-
-        .NumberPad {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .button-row {
-          display: grid;
-          width: 100%;
-          grid-gap: 3px;
-          grid-template-columns: 1fr 1fr 1fr;
-          margin-bottom: 3px;
-          font-family: helvetica;
-        }
-
-        .button {
-          height: var(--block-height);
-          min-height: var(--block-min-height);
-          max-height: var(--block-max-height);
-          background-color: white;
-          border-radius: 9px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 200ms ease;
-          backface-visibility: hidden;
-          user-select: none;
-        }
-
-        .button:hover {
-          background-color: #ecf8ff;
-        }
-
-        .button.pressed {
-          transform: scale(0.98);
-          opacity: 0.9;
-        }
-
-        .button.clear {
-          color: var(--red);
-        }
-
-        .button.enter {
-          color: var(--black);
-          background-color: var(--red);
-        }
-
-        .button.enter:hover {
-          background-color: #fb7755;
-        }
-      </style>
+      <style>${styles}</style>
       <div class="NumberPad">
         <div class="button-row">
           <div class="button button-7">7</div>

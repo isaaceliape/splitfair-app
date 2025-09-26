@@ -50,6 +50,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: var(--Blocks, #d9e4ea);
 }
 
 .Application__logo {

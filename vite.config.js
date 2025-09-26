@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/splitfair-pwa/',
+  base: '/splitfair-app/',
   plugins: [],
   server: {
     host: true,
