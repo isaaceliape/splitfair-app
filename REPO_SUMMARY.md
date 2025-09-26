@@ -46,11 +46,11 @@
 
 - **Production Build:**
   1.  Command: `npm run build` (uses `vue-cli-service build`).
-  2.  Output: Generates optimized static files (HTML, CSS, JS) in the `dist/` directory.
+  2.  Output: Generates optimized static files (HTML, CSS, JS) in the `docs/` directory.
 - **Deployment Process:**
-  1.  The `deploy` script in `package.json` is: `"deploy": "npx vue-cli-service build && rsync -av ./dist/* ../splitsmart-deploy/"`.
+  1.  The `deploy` script in `package.json` is: `"deploy": "npx vue-cli-service build && rsync -av ./docs/* ../splitsmart-deploy/"`.
   2.  This script first builds the application.
-  3.  Then, it uses `rsync` (a file synchronization utility) to copy the contents of the `dist/` directory to a target directory named `splitsmart-deploy/`, located one level above the project root.
+  3.  Then, it uses `rsync` (a file synchronization utility) to copy the contents of the `docs/` directory to a target directory named `splitsmart-deploy/`, located one level above the project root.
   4.  **Likely Method:** The `splitsmart-deploy/` directory is probably a staging area for deployment, potentially another Git repository (e.g., for GitHub Pages) or a folder directly served by a web server. After running the script, further steps might involve committing and pushing changes if `splitsmart-deploy/` is a Git repo.
 
 ## 6. Overall Impression
