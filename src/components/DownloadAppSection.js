@@ -75,7 +75,7 @@ class DownloadAppSection extends HTMLElement {
           height: 100vh;
           transition: 500ms ease;
           transform: translateX(0vw);
-          background: url('/desktop_bg.png') 76% center no-repeat;
+          background: url(${import.meta.env.BASE_URL}desktop_bg.png) 76% center no-repeat;
           background-size: cover;
         }
 
@@ -85,7 +85,7 @@ class DownloadAppSection extends HTMLElement {
           width: 50vw;
           height: 100%;
           cursor: pointer;
-          cursor: url('/cursor-cross-red.png'), auto;
+          cursor: url(${import.meta.env.BASE_URL}cursor-cross-red.png), auto;
         }
 
         .right-content {
@@ -97,7 +97,7 @@ class DownloadAppSection extends HTMLElement {
           text-align: left;
           padding: 2vw 7vw;
           box-sizing: border-box;
-          cursor: url('/cursor-black.png'), auto;
+          cursor: url(${import.meta.env.BASE_URL}cursor-black.png), auto;
         }
 
         .link {
@@ -110,7 +110,7 @@ class DownloadAppSection extends HTMLElement {
 
         .link:hover {
           color: var(--white);
-          cursor: url('/cursor-black.png'), auto;
+          cursor: url(${import.meta.env.BASE_URL}cursor-black.png), auto;
         }
 
         .link.desktop {

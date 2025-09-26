@@ -49,7 +49,7 @@ class Application extends HTMLElement {
           width: 100vw;
           height: 100vh;
           position: relative;
-          cursor: url(/cursor-red.png), auto;
+          cursor: url(${import.meta.env.BASE_URL}cursor-red.png), auto;
           display: flex;
           justify-content: center;
           align-items: center;

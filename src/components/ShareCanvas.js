@@ -150,7 +150,7 @@ class ShareCanvas extends HTMLElement {
       y: GAP,
     });
 
-    Konva.Image.fromURL('/img/logo.ea9ec231.svg', (image) => {
+    Konva.Image.fromURL(`${import.meta.env.BASE_URL}img/logo.ea9ec231.svg`, (image) => {
       image.setAttrs({
         x: CANVAS_WIDTH / 2 - 20,
         y: 35,
