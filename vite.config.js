@@ -18,6 +18,7 @@ export default defineConfig(({ mode }) => ({
         orientation: 'portrait',
         scope: '/',
         start_url: '/',
+        filename: 'manifest.json',
         icons: [
           {
             src: 'icon-72x72.png',
