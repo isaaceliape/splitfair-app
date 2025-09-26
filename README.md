@@ -1,6 +1,6 @@
 # Splitfair
 
-![Splitfair Logo](https://github.com/isaaceliape/splitfair-pwa/blob/master/public/icon-144x144.png?raw=true)
+![Splitfair Logo](https://github.com/isaaceliape/splitfair-app/blob/master/public/icon-144x144.png?raw=true)
 
 A Progressive Web App (PWA) for splitting bills and expenses fairly between multiple people. Built with native Web Components and modern web technologies.
 
@@ -21,7 +21,7 @@ A Progressive Web App (PWA) for splitting bills and expenses fairly between mult
 - **Styling**: CSS with CSS Variables and Shadow DOM
 - **State Management**: Global JavaScript Store
 - **Canvas**: Konva.js for shareable results
-- **PWA**: Vite PWA Plugin
+- **PWA**: Service Worker and manifest.json
 - **Linting**: ESLint with Prettier integration
 
 ## Project Setup
@@ -47,9 +47,8 @@ bun run dev
 ### Building for Production
 
 ```bash
-# For Web Components, static files are served directly
-# No build step required - files are ready to serve
-bun run preview
+# Build the application
+bun run build
 ```
 
 ### Code Quality
@@ -67,15 +66,15 @@ bun run format:check
 
 ### Deployment
 
-The application is automatically deployed to GitHub Pages on every push to the main branch using GitHub Actions.
+The application is deployed to GitHub Pages from the `docs/` folder on the master branch.
 
-**Live URL**: https://isaaceliape.github.io/splitfair-pwa/
+**Live URL**: https://isaaceliape.github.io/splitfair-app/
 
 **Deployment Process**:
 
-- Automatic deployment triggered by pushes to `main` branch
-- Manual deployment available via GitHub Actions workflow dispatch
-- Build process includes linting, formatting checks, and PWA generation
+- Build the application with `bun run build`
+- Commit and push the `docs/` folder to the master branch
+- GitHub Pages serves the content from the `docs/` folder
 
 ### Preview Production Build
 
@@ -103,10 +102,7 @@ splitfair-pwa/
 │   │   └── globalStore.js    # Global store (replaces Vuex)
 │   ├── styles/           # Global styles
 │   └── main.js           # App entry point
-├── docs/                 # Documentation
-│   ├── modernize-build-stack-epic.md
-│   ├── web-components-conversion.md
-│   └── ...
+├── docs/                 # Build output (served by GitHub Pages)
 ├── .eslintrc.json        # ESLint configuration
 ├── .prettierrc          # Prettier configuration
 ├── vite.config.js       # Vite configuration
@@ -119,7 +115,7 @@ splitfair-pwa/
 - **Vite**: See `vite.config.js` for build configuration
 - **ESLint**: See `.eslintrc.json` for linting rules
 - **Prettier**: See `.prettierrc` for code formatting
-- **PWA**: Configured via Vite PWA plugin
+- **PWA**: Configured via manifest.json and service worker
 - **Web Components**: Custom elements are registered in their respective `.js` files
 - **State Management**: Global store configured in `src/store/globalStore.js`
 
