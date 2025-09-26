@@ -4,6 +4,10 @@
 
 A web application for splitting bills and expenses fairly between multiple people. Built with native Web Components and modern web technologies.
 
+## Demo
+
+[🚀 Live Demo](https://isaaceliape.github.io/splitfair-app/)
+
 ## Features
 
 - **Bill Splitting**: Easily split expenses between multiple people
