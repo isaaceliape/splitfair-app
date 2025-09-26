@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "serve": "vite",
-    "build": "vite build",
+    "build": "vite build --base=/splitfair-pwa/",
     "start": "vite",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
