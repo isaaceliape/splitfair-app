@@ -21,8 +21,11 @@
 }
 
 .App {
-  background: #d9e4ea;
+  background: black;
+  padding: 3px;
   width: 400px;
+  box-shadow: 0 0 17px 4px white;
+  border-radius: 10px;
 }
 
 :host(.menuOpened) .App {
@@ -90,6 +93,7 @@
   max-height: var(--block-max-height);
   justify-content: center;
   align-items: center;
+  margin: 0;
 }
 
 .App .input {
