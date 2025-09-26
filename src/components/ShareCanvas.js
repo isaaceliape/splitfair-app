@@ -48,7 +48,7 @@ const LOGO = {
   y: GAP,
 };
 
-import styles from './ShareCanvas.css?inline';
+import stylesUrl from './ShareCanvas.css?url';
 
 class ShareCanvas extends HTMLElement {
   constructor() {
@@ -88,7 +88,7 @@ class ShareCanvas extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-      <style>${styles}</style>
+      <link rel="stylesheet" href="${stylesUrl}">
       <div class="ShareCanvas"></div>
     `;
   }

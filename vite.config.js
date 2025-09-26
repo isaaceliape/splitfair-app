@@ -12,6 +12,10 @@ export default defineConfig(({ mode }) => ({
     outDir: './docs',
     assetsDir: 'assets',
     sourcemap: true,
+    css: {
+      sourcemap: true,
+      minify: false,
+    },
   },
   // Enable source maps in development
   css: {

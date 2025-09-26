@@ -1,4 +1,4 @@
-import styles from './AboutSection.css?inline';
+import stylesUrl from './AboutSection.css?url';
 
 class AboutSection extends HTMLElement {
   constructor() {
@@ -20,7 +20,7 @@ class AboutSection extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-      <style>${styles}</style>
+      <link rel="stylesheet" href="${stylesUrl}">
       <section class="AboutSection ${this.showOptions ? 'showOptions' : ''}">
         <a href="#" class="about"> about </a>
         <div class="overlay">

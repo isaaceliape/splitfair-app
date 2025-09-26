@@ -1,4 +1,4 @@
-import styles from './NumberPad.css?inline';
+import stylesUrl from './NumberPad.css?url';
 
 class NumberPad extends HTMLElement {
   constructor() {
@@ -65,7 +65,7 @@ class NumberPad extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-      <style>${styles}</style>
+      <link rel="stylesheet" href="${stylesUrl}">
       <div class="NumberPad">
         <div class="button-row">
           <div class="button button-7">7</div>

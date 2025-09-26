@@ -1,6 +1,6 @@
 import globalStore from '../store/globalStore.js';
 
-import styles from './App.css?inline';
+import stylesUrl from './App.css?url';
 
 class App extends HTMLElement {
   constructor() {
@@ -127,7 +127,7 @@ class App extends HTMLElement {
     const secondPersonResultName = secondPerson.name ? secondPerson.name : 'Second person';
 
     this.shadowRoot.innerHTML = `
-      <style>${styles}</style>
+      <link rel="stylesheet" href="${stylesUrl}">
       <div class="App">
         <div class="bg"></div>
         <header>

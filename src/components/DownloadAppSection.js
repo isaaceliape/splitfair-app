@@ -1,4 +1,4 @@
-import styles from './DownloadAppSection.css?inline';
+import stylesUrl from './DownloadAppSection.css?url';
 
 class DownloadAppSection extends HTMLElement {
   constructor() {
@@ -20,7 +20,7 @@ class DownloadAppSection extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-      <style>${styles}</style>
+      <link rel="stylesheet" href="${stylesUrl}">
       <section class="DownloadAppSection ${this.showOptions ? 'showOptions' : ''}">
         <a href="#" class="download-app"> download app </a>
         <div class="overlay">
