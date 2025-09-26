@@ -13,6 +13,10 @@ export default defineConfig(({ mode }) => ({
     assetsDir: 'assets',
     sourcemap: true,
   },
+  // Enable source maps in development
+  css: {
+    devSourcemap: true,
+  },
   // Since we're using Web Components, we want to preserve the module structure
   esbuild: {
     // Don't minify for development
