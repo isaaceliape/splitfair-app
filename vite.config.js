@@ -4,7 +4,7 @@ import legacy from '@vitejs/plugin-legacy';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/splitfair-pwa/',
+  base: process.env.NODE_ENV === 'production' ? '/splitfair-pwa/' : '/',
   plugins: [
     // Legacy support for older browsers
     legacy({
