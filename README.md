@@ -86,7 +86,7 @@ bun run preview
 ## Project Structure
 
 ```
-splitfair-pwa/
+splitfair-app/
 ├── public/                 # Static assets
 │   ├── index.html         # Main HTML file
 │   ├── manifest.json      # PWA manifest
