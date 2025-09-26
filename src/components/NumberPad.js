@@ -51,7 +51,8 @@ class NumberPad extends HTMLElement {
     }
   }
 
-  onKeyDown(e) {}
+  // eslint-disable-next-line no-unused-vars
+  onKeyDown(_e) {}
 
   isNumberKey(value) {
     var reg = new RegExp('^[0-9]+$');
