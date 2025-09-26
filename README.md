@@ -2,13 +2,13 @@
 
 ![Splitfair Logo](https://github.com/isaaceliape/splitfair-app/blob/master/public/icon-144x144.png?raw=true)
 
-A Progressive Web App (PWA) for splitting bills and expenses fairly between multiple people. Built with native Web Components and modern web technologies.
+A web application for splitting bills and expenses fairly between multiple people. Built with native Web Components and modern web technologies.
 
 ## Features
 
 - **Bill Splitting**: Easily split expenses between multiple people
 - **Real-time Calculations**: Instant calculations as you input amounts
-- **PWA Support**: Installable on mobile devices
+- **Responsive Design**: Works on desktop and mobile
 - **Responsive Design**: Works on desktop and mobile
 - **Number Pad Interface**: Touch-friendly input interface
 - **Share Results**: Share split results with others
@@ -21,7 +21,7 @@ A Progressive Web App (PWA) for splitting bills and expenses fairly between mult
 - **Styling**: CSS with CSS Variables and Shadow DOM
 - **State Management**: Global JavaScript Store
 - **Canvas**: Konva.js for shareable results
-- **PWA**: Service Worker and manifest.json
+
 - **Linting**: ESLint with Prettier integration
 
 ## Project Setup
@@ -89,7 +89,6 @@ bun run preview
 splitfair-app/
 ├── public/                 # Static assets
 │   ├── index.html         # Main HTML file
-│   ├── manifest.json      # PWA manifest
 │   └── icons/             # App icons
 ├── src/
 │   ├── components/        # Web Components
@@ -115,7 +114,7 @@ splitfair-app/
 - **Vite**: See `vite.config.js` for build configuration
 - **ESLint**: See `.eslintrc.json` for linting rules
 - **Prettier**: See `.prettierrc` for code formatting
-- **PWA**: Configured via manifest.json and service worker
+
 - **Web Components**: Custom elements are registered in their respective `.js` files
 - **State Management**: Global store configured in `src/store/globalStore.js`
 

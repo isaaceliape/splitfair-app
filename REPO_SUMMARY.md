@@ -3,7 +3,7 @@
 ## 1. Project Name and Purpose
 
 - **Name:** Splitfair
-- **Purpose:** The "Splitfair" application is a tool designed for splitting expenses or costs fairly among individuals. The name itself, along with components like `ShareCanvas.js` (for visualizing the split) and `NumberPad.js` (for input), strongly suggests its function is to calculate and display how shared costs should be divided. The presence of `manifest.json` and various icon sizes also indicates it's designed as a Progressive Web App (PWA).
+- **Purpose:** The "Splitfair" application is a tool designed for splitting expenses or costs fairly among individuals. The name itself, along with components like `ShareCanvas.js` (for visualizing the split) and `NumberPad.js` (for input), strongly suggests its function is to calculate and display how shared costs should be divided.
 
 ## 2. Core Technologies
 
@@ -15,7 +15,7 @@
 
 ## 3. Project Structure
 
-- **`public/`:** Contains static assets like `index.html` (the main page), `favicon.ico`, PWA icons (`icon-*.png`), and `manifest.json`. These files are copied directly to the build output.
+- **`public/`:** Contains static assets like `index.html` (the main page), `favicon.ico`, and app icons (`icon-*.png`). These files are copied directly to the build output.
 - **`src/`:** The main application source code directory.
   - **`assets/`:** Stores static assets (images, logos) that are imported into components.
   - **`components/`:** Contains reusable Web Components. Key components include:
@@ -51,4 +51,4 @@
 
 ## 6. Overall Impression
 
-The "Splitfair" repository appears to be a well-structured Web Components application, likely a Progressive Web App (PWA), designed for fairly splitting expenses. It utilizes modern web standards with Vite for tooling and follows common project organization patterns. The inclusion of Konva for canvas interactions suggests an emphasis on a user-friendly and visual way to present the expense split. The development, build, and deployment processes are clearly defined through scripts, indicating a streamlined workflow. The use of ESLint with Prettier integration points to a focus on code quality.
+The "Splitfair" repository appears to be a well-structured Web Components application designed for fairly splitting expenses. It utilizes modern web standards with Vite for tooling and follows common project organization patterns. The inclusion of Konva for canvas interactions suggests an emphasis on a user-friendly and visual way to present the expense split. The development, build, and deployment processes are clearly defined through scripts, indicating a streamlined workflow. The use of ESLint with Prettier integration points to a focus on code quality.
