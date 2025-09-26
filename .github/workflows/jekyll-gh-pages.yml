@@ -36,12 +36,21 @@ jobs:
         run: bun install
       - name: Lint and format
         run: bun run lint && bun run format:check
+<<<<<<< Updated upstream
       - name: Build
         run: bun run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
+=======
+       - name: Build
+         run: bun run build
+       - name: Upload artifact
+         uses: actions/upload-pages-artifact@v3
+         with:
+           path: ./dist
+>>>>>>> Stashed changes
 
   # Deployment job
   deploy:
