@@ -67,10 +67,15 @@ bun run format:check
 
 ### Deployment
 
-```bash
-# Deploy static files (custom deployment script)
-bun run deploy
-```
+The application is automatically deployed to GitHub Pages on every push to the main branch using GitHub Actions.
+
+**Live URL**: https://isaaceliape.github.io/splitfair-pwa/
+
+**Deployment Process**:
+
+- Automatic deployment triggered by pushes to `main` branch
+- Manual deployment available via GitHub Actions workflow dispatch
+- Build process includes linting, formatting checks, and PWA generation
 
 ### Preview Production Build
 
