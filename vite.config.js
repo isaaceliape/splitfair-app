@@ -63,7 +63,7 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        navigateFallback: '/index.html',
+        navigateFallback: false,
         globPatterns: ['**/*.{js,css,ico,png,svg}'],
         maximumFileSizeToCacheInBytes: 5000000, // 5MB
         globIgnores: ['**/desktop_bg.png'], // Exclude large background image
